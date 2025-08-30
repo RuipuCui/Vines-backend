@@ -1,5 +1,25 @@
 {
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0"
-  }
+  },
+  "name": "vines-backend",
+  "version": "1.0.0",
+  "description": "- `db.js` — PostgreSQL connection config (e.g., using `pg` or `knex`) - `aws.js` — (Optional) AWS S3 config for media storage",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeenGuan/Vines-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeenGuan/Vines-backend/issues"
+  },
+  "homepage": "https://github.com/ZeenGuan/Vines-backend#readme"
 }
