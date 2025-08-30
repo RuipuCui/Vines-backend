@@ -1,5 +1,6 @@
 const {Client} = require('pg');
 const fs = require('fs');
+const path = require('path');
 
 require('dotenv').config()
 const client = new Client({
@@ -13,7 +14,7 @@ const client = new Client({
     }
 });
 
-const schema = fs.readFileSync('./schema.sql').toString();
+const schema = fs.readFileSync(path.join(__dirname, 'schema.sql')).toString();
 
 client.connect()
     .then(() => client.query(schema))
