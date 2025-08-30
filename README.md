@@ -3,7 +3,7 @@
 # File Structure Recommand
 
 ## 📂 config/
-- `db.js` — PostgreSQL connection config (e.g., using `pg` or `knex`)
+- `db.js` — PostgreSQL connection config, initialising connection pool, providing query functions
 - `aws.js` — (Optional) AWS S3 config for media storage
 
 ## 📂 controllers/
@@ -14,7 +14,7 @@
 - `gpsController.js`
 - `scoreController.js`
 - `friendController.js`
-
+‹
 ## 📂 middleware/
 - `auth.js` — JWT verification middleware
 - `errorHandler.js`
