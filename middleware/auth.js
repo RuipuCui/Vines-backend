@@ -1,22 +1,44 @@
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret';
+// const admin = require('../config/firebaseAdmin')
 
-module.exports = function auth(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]
+// async function auth(req, res, next) {
+//     console.log("--- start auth check ---")
+//     try{
+//         const authHeader = req.headers['authorization'];
 
-    if (!token) {
-        return res.status(401).json({error: 'missing token'});
-    }
+//         console.log('Received Authorization header:', req.headers['authorization']);
 
-    try {
-        //token verification
-        const payload = jwt.verify(token, JWT_SECRET);
 
-        req.user = payload;
+//         if(!authHeader || !authHeader.startsWith('Bearer')){
+//             return res.status(401).json({error: 'Authorization header missing'});
+//         };
 
-        next();
-    } catch (err) {
-        return res.status(401).json({ error: 'expired or invalid token' });
-    }
+//         const token = authHeader.split(' ')[1];
+//         const decoded = await admin.auth().verifyIdToken(token);
+//         req.user = {
+//             userId: decoded.uid,
+//         };
+//         return next();
+//     }catch (err){
+//         console.error('verifyIdToken failed:', err.code, err.message);
+//         return res.status(403).json({error: 'Invalid or expired token'})
+//     };
+// };
+
+// module.exports = auth;
+
+const admin = require('../config/firebaseAdmin')
+
+async function auth(req, res, next) {
+    console.log("--- start auth check ---")
+    try{
+        req.user = {
+            userId: 1,
+        };
+        return next();
+    }catch (err){
+        console.error('verifyIdToken failed:', err.code, err.message);
+        return res.status(403).json({error: 'Invalid or expired token'})
+    };
 };
+
+module.exports = auth;
