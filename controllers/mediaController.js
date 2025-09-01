@@ -1,9 +1,10 @@
 const mediaModel = require('../models/mediaModel');
 
 const uploadMedia = async (req, res) => {
-  const { userId } = req.user;  // from auth middleware
+  console.log("--- start upload media ---")
+  const { userId } = req.user;
   const { mediaType, localDate } = req.body;
-  const mediaUrl = req.file.location;  // assuming uploaded to S3 via multer
+  const mediaUrl = req.file.location;
 
   try {
     const media = await mediaModel.createMedia({
@@ -12,6 +13,7 @@ const uploadMedia = async (req, res) => {
       mediaUrl,
       localDate
     });
+    console.log("media posted to database")
     res.status(201).json(media);
   } catch (err) {
     console.error('Upload error:', err);
