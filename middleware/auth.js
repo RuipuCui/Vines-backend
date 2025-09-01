@@ -18,6 +18,9 @@ async function auth(req, res, next) {
 
         //the user id existing in the database are only 1, 2, 3, 
         //Hardcode for now
+        // req.user = {
+        //     userId: decoded.uid,
+        // };
         req.user = {
             userId: 1,
         };
