@@ -8,7 +8,7 @@ const auth = require('../middleware/auth');     // jwt middleware
 router.post('/upload', auth, upload.single('file'), mediaController.uploadMedia);
 
 // GET /api/media (get all uploads for logged-in user)
-router.get('/get', auth,  mediaController.getUserMedia);
+router.post('/get', auth,  mediaController.getUserMedia);
 
 
 module.exports = router;

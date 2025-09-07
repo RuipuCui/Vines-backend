@@ -22,6 +22,17 @@ const uploadMedia = async (req, res) => {
 };
 
 const getUserMedia = async(req, res) => {
+  console.log(`start getting media posted`)
+  const { userId } = req.user;
+  const date = req.body?.date ?? null;
+  console.log(date)
+  try {
+    const mediaUrls = await mediaModel.getMediaByUser(userId, date);
+    res.status(201).json(mediaUrls)
+  } catch(err){
+    console.log("get media error ", err);
+    res.status(500).json({ error: 'Failed to get media'});
+  }
     
 };
 
