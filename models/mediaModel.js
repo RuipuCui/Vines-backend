@@ -42,7 +42,7 @@ const getMediaByUser = async (userId, date = null) => {
 };
 
 // Delete a media record by ID
-const deleteMediaById = async (uploadId) => {
+const deleteMediaByUploadId = async (uploadId) => {
   const query = `
     DELETE FROM media_uploads
     WHERE upload_id = $1
@@ -52,8 +52,19 @@ const deleteMediaById = async (uploadId) => {
   return res.rows[0];
 };
 
+const deleteMediaByUserId = async (userId) => {
+  const query =  `
+    DELETE FROM media_uploads
+    WHERE user_id = $1
+    RETURNING *;
+  `;
+  const res = await pool.query(query, [userId]);
+  return res.rows[0];
+}
+
 module.exports = {
   createMedia,
   getMediaByUser,
-  deleteMediaById
+  deleteMediaByUploadId,
+  deleteMediaByUserId
 };

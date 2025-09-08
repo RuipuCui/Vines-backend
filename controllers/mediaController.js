@@ -14,29 +14,57 @@ const uploadMedia = async (req, res) => {
       localDate
     });
     console.log("media posted to database")
-    res.status(201).json(media);
+    return res.status(201).json(media);
   } catch (err) {
     console.error('Upload error:', err);
-    res.status(500).json({ error: 'Failed to upload media' });
+    return res.status(500).json({ error: 'Failed to upload media' });
   }
 };
 
 const getUserMedia = async(req, res) => {
   console.log(`start getting media posted`)
   const { userId } = req.user;
-  const date = req.body?.date ?? null;
-  console.log(date)
+  const date = req.query?.date ?? null
   try {
     const mediaUrls = await mediaModel.getMediaByUser(userId, date);
-    res.status(201).json(mediaUrls)
+    return res.status(200).json(mediaUrls)
   } catch(err){
     console.log("get media error ", err);
-    res.status(500).json({ error: 'Failed to get media'});
+    return res.status(500).json({ error: 'Failed to get media'});
   }
     
 };
 
+const deleteMediaByUploadId = async(req, res) => {
+  console.log( `start delete user ${req.user}'s media` );
+  const uploadId = req.query?.uploadId ?? null;
+  if(!uploadId){
+    return res.status(500).json({ error: 'Failed to delete by upload id'})
+  }
+  try{
+    const mediaDelete = await mediaModel.deleteMediaByUploadId(uploadId);
+    return res.status(200).json(mediaDelete);
+  }catch(err){
+    console.log('delete media error', err);
+    return res.status(500).json({ error: 'Failed to delete medias'})
+  }
+}
+
+const deleteMediaByUserId = async(req, res) => {
+  console.log( `start delete user ${req.user}'s media` );
+  const { userId } = req.user;
+  try {
+    const mediaDelete = await mediaModel.deleteMediaByUserId(userId);
+    return res.status(200).json(mediaDelete);
+  }catch(err){
+    console.log('delete media error', err);
+    return res.status(500).json({ error: 'Failed to delete medias'})
+  }
+}
+
 module.exports = {
   uploadMedia, 
-  getUserMedia
+  getUserMedia,
+  deleteMediaByUploadId,
+  deleteMediaByUserId
 }

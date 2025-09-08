@@ -4,11 +4,10 @@ const mediaController = require('../controllers/mediaController');
 const upload = require('../middleware/upload'); // multer middleware
 const auth = require('../middleware/auth');     // jwt middleware
 
-// POST /api/media (with multer and auth)
 router.post('/upload', auth, upload.single('file'), mediaController.uploadMedia);
-
-// GET /api/media (get all uploads for logged-in user)
-router.post('/get', auth,  mediaController.getUserMedia);
+router.get('/getMedia', auth,  mediaController.getUserMedia);
+router.delete('/deleteMediaByUploadId', auth, mediaController.deleteMediaByUploadId);
+router.delete('/deleteMediaByUserId', auth, mediaController.deleteMediaByUserId);
 
 
 module.exports = router;
