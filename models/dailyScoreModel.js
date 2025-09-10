@@ -1,6 +1,6 @@
 const pool = require('../config/db');
 
-const createDailyScore = async ({ userId, score_date, mental_health_score, mental_details}) => {
+const createDailyScore = async (userId, score_date, mental_health_score, mental_details) => {
   console.log("start uploading daily score");
   const query = `
     INSERT INTO daily_scores (user_id, score_date, mental_health_score, mental_details)
@@ -12,7 +12,7 @@ const createDailyScore = async ({ userId, score_date, mental_health_score, menta
   return res.rows[0];
 };
 
-const getDailyScoresByDate = async({userId, score_date}) => {
+const getDailyScoresByDate = async(userId, score_date) => {
     console.log("start get daily score by date");
     let query = `
         SELECT * FROM daily_scores
@@ -23,7 +23,7 @@ const getDailyScoresByDate = async({userId, score_date}) => {
     return res.rows;
 };
 
-const getDailyScoresByDays = async({userId, days}) => {
+const getDailyScoresByDays = async(userId, days) => {
     console.log(`start get daily score from last ${days}`);
     let query = `
         SELECT * FROM daily_scores
