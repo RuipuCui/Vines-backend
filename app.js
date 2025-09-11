@@ -13,10 +13,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/media', require('./routes/mediaRoutes'));
-// app.use('/api/gps', require('./routes/gpsRoutes'));
+app.use('/api/gps', require('./routes/gpsRoutes'));
 // app.use('/api/scores', require('./routes/scoreRoutes'));
 // app.use('/api/metrics', require('./routes/metricsRoutes'));
 // app.use('/api/friends', require('./routes/friendRoutes'));
-// app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 module.exports = app;
