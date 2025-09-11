@@ -24,13 +24,13 @@ const getUserDailyScore = async(req, res) => {
 const uploadUserDailyScore = async(req, res) => {
     console.log(`get request of uploading user daily score`);
     const { userId } = req.user;
-    const jsonBody = JSON.parse(req.body);
-    const score_date = jsonBody.score_date;
-    const mental_health_score = jsonBody.mental_health_score;
-    const mental_details = jsonBody.json.mental_details
+    const score_date = req.body?.score_date ?? null;
+    const mental_health_score = req.body?.mental_health_score ?? null;
+    const mental_details = req.body?.mental_details ?? null;
 
+    console.log("userId: ", userId, " score_date: ", score_date, " mental_health_score: ", mental_health_score, " mental_details: ", mental_details);
     if( !score_date || !mental_details || !mental_health_score){
-        return res.status(404).josn({ error: 'request body invlid'})
+        return res.status(404).json({ error: 'request body invlid'})
     }
 
     try {
