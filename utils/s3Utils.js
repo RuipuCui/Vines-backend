@@ -19,6 +19,26 @@ const s3 = new S3Client({
 
 const BUCKET = process.env.AWS_BUCKET_NAME;
 
+function parseS3Url(url) {
+  try {
+    const parsedUrl = new URL(url);
+
+    // Example hostname: your-bucket-name.s3.ap-southeast-2.amazonaws.com
+    const [bucket, , region] = parsedUrl.hostname.split('.');
+
+    const key = decodeURIComponent(parsedUrl.pathname).substring(1); // remove leading "/"
+
+    return {
+      bucket,
+      key,
+      region
+    };
+  } catch (err) {
+    throw new Error('Invalid S3 URL');
+  }
+}
+
+
 /** Upload any buffer/stream/string to S3 */
 async function putObject({ key, body, contentType}) {
   if (!key) throw new Error('putObject: key is required');
@@ -77,4 +97,10 @@ async function deleteObjects(keys = []) {
   };
 }
 
-module.exports = { putObject, putFile, deleteObject, deleteObjects };
+module.exports = { 
+  putObject, 
+  putFile, 
+  deleteObject, 
+  deleteObjects,
+  parseS3Url, 
+};
