@@ -25,7 +25,12 @@ const getUserMedia = async(req, res) => {
   console.log(`start getting media posted`)
   const { userId } = req.user;
   const date = req.query?.date ?? null
+  const uploadId = req.query?.uploadId ?? null
   try {
+    if(uploadId){
+      const mediaUrls = await mediaModel.getMediaByUploadId(uploadId);
+      return res.status(200).json(mediaUrls)
+    }
     const mediaUrls = await mediaModel.getMediaByUser(userId, date);
     return res.status(200).json(mediaUrls)
   } catch(err){
@@ -66,5 +71,5 @@ module.exports = {
   uploadMedia, 
   getUserMedia,
   deleteMediaByUploadId,
-  deleteMediaByUserId
+  deleteMediaByUserId,
 }
