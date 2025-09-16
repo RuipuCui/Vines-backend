@@ -2,7 +2,7 @@ const mediaModel = require('../models/mediaModel');
 
 const uploadMedia = async (req, res) => {
   console.log("--- start upload media ---")
-  const { userId } = req.user;
+  const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
   const { mediaType, localDate } = req.body;
   const mediaUrl = req.file.location;
 
@@ -23,7 +23,7 @@ const uploadMedia = async (req, res) => {
 
 const getUserMedia = async(req, res) => {
   console.log(`start getting media posted`)
-  const { userId } = req.user;
+  const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
   const date = req.query?.date ?? null
   const uploadId = req.query?.uploadId ?? null
   try {
@@ -57,7 +57,7 @@ const deleteMediaByUploadId = async(req, res) => {
 
 const deleteMediaByUserId = async(req, res) => {
   console.log( `start delete user ${req.user}'s media` );
-  const { userId } = req.user;
+  const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
   try {
     const mediaDelete = await mediaModel.deleteMediaByUserId(userId);
     return res.status(200).json(mediaDelete);
