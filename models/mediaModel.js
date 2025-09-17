@@ -68,7 +68,7 @@ const deleteMediaByUserId = async (userId) => {
     RETURNING *;
   `;
   const res = await pool.query(query, [userId]);
-  return res.rows[0];
+  return res.rows;
 }
 
 module.exports = {
