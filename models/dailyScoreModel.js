@@ -12,6 +12,22 @@ const createDailyScore = async (userId, score_date, mental_health_score, mental_
   return res.rows[0];
 };
 
+const updateDailyScore = async (userId, score_date, mental_health_score, mental_details) => {
+  console.log("start updating daily score");
+  const query = `
+    UPDATE daily_scores
+    SET mental_health_score = $3,
+        mental_details = $4
+    WHERE user_id = $1
+      AND score_date = $2
+    RETURNING *;
+  `;
+  const values = [userId, score_date, mental_health_score, mental_details];
+  const res = await pool.query(query, values);
+  return res.rows[0];
+};
+
+
 const getDailyScoresByDate = async(userId, score_date) => {
     console.log("start get daily score by date");
     let query = `
@@ -39,5 +55,6 @@ const getDailyScoresByDays = async(userId, days) => {
 module.exports= {
     createDailyScore,
     getDailyScoresByDate,
-    getDailyScoresByDays
+    getDailyScoresByDays,
+    updateDailyScore
 }

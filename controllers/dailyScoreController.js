@@ -42,7 +42,29 @@ const uploadUserDailyScore = async(req, res) => {
     }
 }
 
+const updateUserDailyScore = async(req, res) => {
+    console.log(`get request of uploading user daily score`);
+    const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
+    const score_date = req.body?.score_date ?? null;
+    const mental_health_score = req.body?.mental_health_score ?? null;
+    const mental_details = req.body?.mental_details ?? null;
+
+    console.log("userId: ", userId, " score_date: ", score_date, " mental_health_score: ", mental_health_score, " mental_details: ", mental_details);
+    if( !score_date || !mental_details || !mental_health_score){
+        return res.status(404).json({ error: 'request body invlid'})
+    }
+
+    try {
+        const updateUserDailyScore = await dailyScoreModel.updateDailyScore(userId, score_date, mental_health_score, mental_details);
+        return res.status(200).json(updateUserDailyScore);
+    } catch (err){
+        console.log("update daily score error ", err);
+        return res.status(500).json({ error: 'Failed to update daily score'});
+    }
+}
+
 module.exports = {
     uploadUserDailyScore,
-    getUserDailyScore
+    getUserDailyScore,
+    updateUserDailyScore
 }
