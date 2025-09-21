@@ -2,7 +2,7 @@ const dailyScoreModel = require('../models/dailyScoreModel')
 
 const getUserDailyScore = async(req, res) => {
     console.log(`get request of fetching user daily score`);
-    const { userId } = req.user;
+    const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
     const score_date = req.query?.score_date ?? null;
     const days = req.query?.days ?? null;
     try {
@@ -23,7 +23,7 @@ const getUserDailyScore = async(req, res) => {
 
 const uploadUserDailyScore = async(req, res) => {
     console.log(`get request of uploading user daily score`);
-    const { userId } = req.user;
+    const userId = req.user && (req.user.user_id || req.user.id || req.user.uid);
     const score_date = req.body?.score_date ?? null;
     const mental_health_score = req.body?.mental_health_score ?? null;
     const mental_details = req.body?.mental_details ?? null;
