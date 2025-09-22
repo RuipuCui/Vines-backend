@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 app.use('/api/media', require('./routes/mediaRoutes'));
 app.use('/api/gps', require('./routes/gpsRoutes'));
 app.use('/api/dailyScore', require('./routes/dailyScoreRoutes'));
-// app.use('/api/metrics', require('./routes/metricsRoutes'));
-// app.use('/api/friends', require('./routes/friendRoutes'));
+app.use('/api/metrics', require('./routes/metricsRoutes'));
+app.use('/api/friends', require('./routes/friendRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 
 module.exports = app;
