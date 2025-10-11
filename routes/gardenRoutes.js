@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { checkin, getRecentGardens } = require('../controllers/gardenController');
-const { authenticateToken } = require('../middleware/auth');
+const auth = require('../middleware/auth');
+const c = require('../controllers/gardenController');
 
-// Daily check-in: earn a flower
-router.post('/checkin', authenticateToken, checkin);
+// protect all garden routes
+router.use(auth);
 
-// Fetch garden data for the last month (4 weeks)
-router.get('/recent', authenticateToken, getRecentGardens);
+// Daily check-in: add a flower to this week
+// body: { date: "YYYY-MM-DD", flower_url: "https://...", pot_url?: "https://..." }
+router.post('/checkin', c.checkin);
+
+// Get last 4 weeks of garden records (with earned_count)
+// query: none (user inferred from auth)
+router.get('/recent', c.getRecentGardens);
 
 module.exports = router;
