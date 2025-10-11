@@ -1,4 +1,4 @@
-const Friends = require('../models/friendsModel');
+const Friends = require('../models/friendModel');
 
 const meId = (req)=> req.user?.user_id || req.user?.uid;
 
