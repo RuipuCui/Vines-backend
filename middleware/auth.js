@@ -25,10 +25,7 @@ async function auth(req, res, next) {
     await db.query(
       `INSERT INTO users (user_id, username, email, icon_url)
        VALUES ($1, COALESCE($2, $1), $3, $4)
-       ON CONFLICT (user_id) DO UPDATE
-         SET username = COALESCE(EXCLUDED.username, users.username),
-             email    = COALESCE(EXCLUDED.email, users.email),
-             icon_url = COALESCE(EXCLUDED.icon_url, users.icon_url)`,
+       ON CONFLICT (user_id) DO NOTHING`,
       [uid, displayName, email, photoURL]
     );
 
