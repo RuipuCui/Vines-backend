@@ -33,32 +33,29 @@ exports.sendFriendRequest = async (fromUserId, toUserId) => {
       VALUES ($1, $2, 'pending')
       ON CONFLICT (user_id, friend_id) DO NOTHING
       RETURNING user_id, friend_id, status, created_at
+    ),
+    target AS (
+      SELECT u.user_id, u.username, u.icon_url
+      FROM users u
+      WHERE u.user_id = $2
     )
     SELECT
-      COALESCE(i.user_id, $1)  AS user_id,
-      COALESCE(i.friend_id, $2) AS friend_id,
-      COALESCE(i.status, 'pending') AS status,
-      COALESCE(i.created_at, NOW()) AS created_at,
-      u.user_id   AS other_user_id,
-      u.username  AS other_username,
-      u.icon_url  AS other_icon_url
-    FROM (SELECT * FROM ins) i
-    JOIN users u ON u.user_id = $2
-    UNION ALL
-    SELECT
-      $1 AS user_id,
-      $2 AS friend_id,
-      'pending' AS status,
-      NOW() AS created_at,
-      u2.user_id AS other_user_id,
-      u2.username AS other_username,
-      u2.icon_url AS other_icon_url
-    WHERE NOT EXISTS (SELECT 1 FROM ins)
-      AND EXISTS (SELECT 1 FROM users u2 WHERE u2.user_id = $2);
+      COALESCE(i.user_id, $1)            AS user_id,
+      COALESCE(i.friend_id, $2)          AS friend_id,
+      COALESCE(i.status, 'pending')      AS status,
+      COALESCE(i.created_at, NOW())      AS created_at,
+      t.user_id                           AS other_user_id,
+      t.username                          AS other_username,
+      t.icon_url                          AS other_icon_url
+    FROM target t
+    LEFT JOIN ins i ON TRUE;
   `;
+
   const { rows } = await db.query(q, [fromId, toId]);
+  // If target user doesn't exist, rows.length will be 0
   return rows[0] || null;
 };
+
 
 /**
  * List pending requests.
