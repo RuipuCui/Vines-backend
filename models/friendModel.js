@@ -12,8 +12,10 @@ const db = require('../config/db');
 
 const sanitizeIds = (a, b) => {
   if (!a || !b) throw new Error('invalid_user_id');
-  if (String(a) === String(b)) throw new Error('cannot_friend_self');
-  return [String(a), String(b)];
+  const A = String(a).trim();
+  const B = String(b).trim();
+  if (A === B) throw new Error('cannot_friend_self');
+  return [A, B];
 };
 
 /**
@@ -67,27 +69,48 @@ exports.listRequests = async (userId, type = 'incoming') => {
 
 /**
  * Accept a pending request from requesterId -> me.
- * - Sets that row to 'accepted'
- * - Ensures reciprocal row me -> requesterId exists and is 'accepted'
+ * - Updates A->B (pending) to 'accepted'
+ * - Upserts B->A to 'accepted'
+ * Adds diagnostics so we can tell "not found" vs "not pending".
  */
 exports.acceptRequest = async (requesterId, me) => {
   const [fromId, toId] = sanitizeIds(requesterId, me);
-  const client = await (db.connect ? db.connect() : null);
-  const q = client || db;
+
+  // --- MINIMAL FIX: only call connect() when db is a Pool ---
+  let client = null;
+  let q = db;
   try {
+    // Detect Pool by constructor name; Pools are safe to .connect() per request
+    if (db && db.constructor && db.constructor.name === 'Pool') {
+      client = await db.connect();
+      q = client;
+    }
+
     if (client) await q.query('BEGIN');
 
     const { rowCount } = await q.query(
       `UPDATE friendships
-       SET status = 'accepted'
+         SET status = 'accepted'
        WHERE user_id = $1 AND friend_id = $2 AND status = 'pending'`,
       [fromId, toId]
     );
+
     if (rowCount === 0) {
-      throw new Error('not_found_or_forbidden'); // no pending request to accept
+      const { rows: probe } = await q.query(
+        `SELECT status FROM friendships WHERE user_id = $1 AND friend_id = $2`,
+        [fromId, toId]
+      );
+      if (!probe[0]) {
+        const e = new Error('not_found_or_forbidden');
+        e.meta = { fromId, toId };
+        throw e;
+      } else {
+        const e = new Error('not_pending');
+        e.meta = { fromId, toId, currentStatus: probe[0].status };
+        throw e;
+      }
     }
 
-    // Upsert reciprocal accepted row
     await q.query(
       `INSERT INTO friendships (user_id, friend_id, status)
        VALUES ($1, $2, 'accepted')
@@ -101,7 +124,8 @@ exports.acceptRequest = async (requesterId, me) => {
     if (client) await q.query('ROLLBACK');
     throw e;
   } finally {
-    client && client.release();
+    // Only release when we actually checked out a Pool client
+    if (client && typeof client.release === 'function') client.release();
   }
 };
 

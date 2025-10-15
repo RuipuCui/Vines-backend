@@ -14,4 +14,10 @@ router.post('/checkin', c.checkin);
 // query: none (user inferred from auth)
 router.get('/recent', c.getRecentGardens);
 
+// Get the current week's garden (Mon..Sun)
+router.get('/week', c.getThisWeekGarden);
+
+// Get friends who checked in today (Daily Snapshot)
+router.get('/friends-today', c.getFriendsToday);
+
 module.exports = router;

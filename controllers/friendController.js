@@ -23,23 +23,35 @@ exports.listRequests = async (req,res)=>{
   }catch(e){ res.status(500).json({error:'server error'}); }
 };
 
-exports.accept = async (req,res)=>{
-  try{ 
+// POST /friends/requests/:userId/accept
+exports.accept = async (req, res) => {
+  try {
     const me = meId(req);
-    if(!me) return res.status(401).json({error:'unauthorised'});
-    const targetId = req.params.userId || req.params.id;
-    if(!targetId) return res.status(400).json({error:'cannot accept'});
+    if (!me) return res.status(401).json({ error: 'unauthorised' });
+
+    // requesterId (the sender of the original request A->B)
+    const targetIdRaw = req.params.userId || req.params.id;
+    const targetId = typeof targetIdRaw === 'string' ? targetIdRaw.trim() : targetIdRaw;
+    if (!targetId) return res.status(400).json({ error: 'missing requesterId in URL' });
+
     try {
-      const ok = await Friends.acceptRequest(targetId, me);
-      res.json(ok);
-    } catch(e) {
-      if(e.message === 'not_found_or_forbidden') {
-        res.status(404).json({error:'not found'});
-      } else {
-        res.status(400).json({error:'cannot accept'});
+      const ok = await Friends.acceptRequest(targetId, me); // (A, B)
+      return res.json(ok); // { ok: true }
+    } catch (e) {
+      // precise error mapping (paired with the model patch)
+      if (e.message === 'not_found_or_forbidden') {
+        return res.status(404).json({ error: 'request not found or not allowed', meta: e.meta });
       }
+      if (e.message === 'not_pending') {
+        return res.status(409).json({ error: 'request is not pending', meta: e.meta });
+      }
+      console.error('accept controller error:', e);
+      return res.status(400).json({ error: 'cannot accept', detail: e.message });
     }
-  }catch(e){ res.status(400).json({error:'cannot accept'}); }
+  } catch (e) {
+    console.error('accept controller outer error:', e);
+    return res.status(400).json({ error: 'cannot accept' });
+  }
 };
 
 exports.decline = async (req,res)=>{
