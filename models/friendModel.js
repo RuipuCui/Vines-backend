@@ -22,15 +22,41 @@ const sanitizeIds = (a, b) => {
  * Send a friend request (creates a single PENDING row requester -> receiver).
  * Returns the created row or null if an identical pending/accepted/rejected row already exists.
  */
+// Send a friend request (A -> B) and also return receiver's basic profile.
+// Backward compatible: keeps existing fields and adds other_* fields.
 exports.sendFriendRequest = async (fromUserId, toUserId) => {
   const [fromId, toId] = sanitizeIds(fromUserId, toUserId);
-  const { rows } = await db.query(
-    `INSERT INTO friendships (user_id, friend_id, status)
-     VALUES ($1, $2, 'pending')
-     ON CONFLICT (user_id, friend_id) DO NOTHING
-     RETURNING *;`,
-    [fromId, toId]
-  );
+
+  const q = `
+    WITH ins AS (
+      INSERT INTO friendships (user_id, friend_id, status)
+      VALUES ($1, $2, 'pending')
+      ON CONFLICT (user_id, friend_id) DO NOTHING
+      RETURNING user_id, friend_id, status, created_at
+    )
+    SELECT
+      COALESCE(i.user_id, $1)  AS user_id,
+      COALESCE(i.friend_id, $2) AS friend_id,
+      COALESCE(i.status, 'pending') AS status,
+      COALESCE(i.created_at, NOW()) AS created_at,
+      u.user_id   AS other_user_id,
+      u.username  AS other_username,
+      u.icon_url  AS other_icon_url
+    FROM (SELECT * FROM ins) i
+    JOIN users u ON u.user_id = $2
+    UNION ALL
+    SELECT
+      $1 AS user_id,
+      $2 AS friend_id,
+      'pending' AS status,
+      NOW() AS created_at,
+      u2.user_id AS other_user_id,
+      u2.username AS other_username,
+      u2.icon_url AS other_icon_url
+    WHERE NOT EXISTS (SELECT 1 FROM ins)
+      AND EXISTS (SELECT 1 FROM users u2 WHERE u2.user_id = $2);
+  `;
+  const { rows } = await db.query(q, [fromId, toId]);
   return rows[0] || null;
 };
 
@@ -38,32 +64,86 @@ exports.sendFriendRequest = async (fromUserId, toUserId) => {
  * List pending requests.
  * type = 'incoming' | 'outgoing' | 'all'
  */
-exports.listRequests = async (userId, type = 'incoming') => {
-  let sql, params;
-  if (type === 'incoming') {
-    sql = `
-      SELECT f.*, u.username AS from_username, u.email AS from_email
+// List pending requests with the *other party's* basic profile.
+// type: 'incoming' | 'outgoing' | 'all'
+exports.listRequests = async (me, type = 'all') => {
+  const userId = String(me).trim();
+  const t = (type || 'all').toLowerCase();
+
+  if (t === 'incoming') {
+    const q = `
+      SELECT
+        f.user_id   AS requester_id,
+        f.friend_id AS receiver_id,
+        f.status,
+        f.created_at,
+        -- other party is the requester
+        u.user_id   AS other_user_id,
+        u.username  AS other_username,
+        u.icon_url  AS other_icon_url,
+        'incoming'  AS direction
       FROM friendships f
       JOIN users u ON u.user_id = f.user_id
-      WHERE f.friend_id = $1 AND f.status = 'pending'
-      ORDER BY f.created_at DESC`;
-    params = [userId];
-  } else if (type === 'outgoing') {
-    sql = `
-      SELECT f.*, u.username AS to_username, u.email AS to_email
+      WHERE f.friend_id = $1
+        AND f.status = 'pending'
+      ORDER BY f.created_at DESC;
+    `;
+    const { rows } = await db.query(q, [userId]);
+    return rows;
+  }
+
+  if (t === 'outgoing') {
+    const q = `
+      SELECT
+        f.user_id   AS requester_id,
+        f.friend_id AS receiver_id,
+        f.status,
+        f.created_at,
+        -- other party is the receiver
+        u.user_id   AS other_user_id,
+        u.username  AS other_username,
+        u.icon_url  AS other_icon_url,
+        'outgoing'  AS direction
       FROM friendships f
       JOIN users u ON u.user_id = f.friend_id
-      WHERE f.user_id = $1 AND f.status = 'pending'
-      ORDER BY f.created_at DESC`;
-    params = [userId];
-  } else {
-    sql = `
-      SELECT * FROM friendships
-      WHERE (user_id = $1 OR friend_id = $1) AND status = 'pending'
-      ORDER BY created_at DESC`;
-    params = [userId];
+      WHERE f.user_id = $1
+        AND f.status = 'pending'
+      ORDER BY f.created_at DESC;
+    `;
+    const { rows } = await db.query(q, [userId]);
+    return rows;
   }
-  const { rows } = await db.query(sql, params);
+
+  // 'all' = incoming ∪ outgoing with the same shape
+  const q = `
+    SELECT
+      f.user_id   AS requester_id,
+      f.friend_id AS receiver_id,
+      f.status,
+      f.created_at,
+      u.user_id   AS other_user_id,
+      u.username  AS other_username,
+      u.icon_url  AS other_icon_url,
+      'incoming'  AS direction
+    FROM friendships f
+    JOIN users u ON u.user_id = f.user_id
+    WHERE f.friend_id = $1 AND f.status = 'pending'
+    UNION ALL
+    SELECT
+      f.user_id   AS requester_id,
+      f.friend_id AS receiver_id,
+      f.status,
+      f.created_at,
+      u.user_id   AS other_user_id,
+      u.username  AS other_username,
+      u.icon_url  AS other_icon_url,
+      'outgoing'  AS direction
+    FROM friendships f
+    JOIN users u ON u.user_id = f.friend_id
+    WHERE f.user_id = $1 AND f.status = 'pending'
+    ORDER BY created_at DESC;
+  `;
+  const { rows } = await db.query(q, [userId]);
   return rows;
 };
 
