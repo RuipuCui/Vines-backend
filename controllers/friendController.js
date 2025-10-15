@@ -117,23 +117,16 @@ exports.cancel = async (req, res) => {
 };
 
 // GET /api/friends
-exports.listFriends = async (me) => {
-  const q = `
-    SELECT
-      u.user_id,
-      u.username,
-      u.display_name,
-      u.icon_url,
-      f.created_at
-    FROM friendships f
-    JOIN users u
-      ON u.user_id = f.friend_id
-    WHERE f.user_id = $1
-      AND f.status = 'accepted'
-    ORDER BY u.username;
-  `;
-  const { rows } = await db.query(q, [me]);
-  return rows;
+exports.listFriends = async (req, res) => {
+  try {
+    const me = meId(req);
+    if (!me) return res.status(401).json({ error: 'unauthorised' });
+    const rows = await Friends.listFriends(me);
+    return res.json(rows);
+  } catch (e) {
+    console.error('listFriends error:', e);
+    return res.status(500).json({ error: 'server error' });
+  }
 };
 
 // DELETE /api/friends/:userId
