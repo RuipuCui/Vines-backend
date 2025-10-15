@@ -244,14 +244,21 @@ exports.cancelRequest = async (me, receiverId) => {
  * Because we create reciprocal rows on accept, we can query only my outgoing accepted edges.
  */
 exports.listFriends = async (me) => {
-  const { rows } = await db.query(
-    `SELECT u.user_id, u.username, u.email
-     FROM friendships f
-     JOIN users u ON u.user_id = f.friend_id
-     WHERE f.user_id = $1 AND f.status = 'accepted'
-     ORDER BY f.created_at DESC`,
-    [me]
-  );
+  const q = `
+    SELECT
+      u.user_id,
+      u.username,
+      u.display_name,
+      u.icon_url,
+      f.created_at
+    FROM friendships f
+    JOIN users u
+      ON u.user_id = f.friend_id
+    WHERE f.user_id = $1
+      AND f.status = 'accepted'
+    ORDER BY u.username;
+  `;
+  const { rows } = await db.query(q, [me]);
   return rows;
 };
 
