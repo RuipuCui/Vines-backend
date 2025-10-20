@@ -19,4 +19,7 @@ router.get('/week', c.getThisWeekGarden);
 // Get friends who checked in today (Daily Snapshot)
 router.get('/friends-today', c.getFriendsToday);
 
+// Get any user's current week garden (no friend check)
+router.get('/user/:userId/week', c.getUserThisWeek);
+
 module.exports = router;

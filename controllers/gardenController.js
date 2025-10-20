@@ -1,5 +1,47 @@
 const Garden = require('../models/gardenModel');
 
+// normalizeDate 
+// Return local-date string 'YYYY-MM-DD'.
+// - input undefined/null  -> today
+// - input 'YYYY-MM-DD'    -> returned as-is (validated)
+// - input Date/string     -> parsed to local date then formatted
+function normalizeDate(input) {
+  // helper to format a Date (local midnight) to 'YYYY-MM-DD'
+  const toYmd = (d) => {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  if (!input) {
+    const now = new Date();
+    const localMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return toYmd(localMidnight);
+  }
+
+  if (input instanceof Date) {
+    const d = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+    return toYmd(d);
+  }
+
+  const s = String(input).trim();
+
+  // already 'YYYY-MM-DD' -> trust it
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+
+  // try to parse
+  const parsed = new Date(s);
+  if (!isNaN(parsed)) {
+    const d = new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
+    return toYmd(d);
+  }
+
+  const err = new Error('invalid_date');
+  err.http = 400;
+  throw err;
+}
+
 // Daily check-in: store flower_name (string) into this week's correct day column.
 exports.checkin = async (req, res) => {
   try {
@@ -107,6 +149,48 @@ exports.getFriendsToday = async (req, res) => {
     return res.status(200).json(friends);
   } catch (err) {
     console.error('Get friends daily snapshot error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+const Garden = require('../models/gardenModel');
+
+// helper: Monday of this week in 'YYYY-MM-DD'
+function mondayOfThisWeek() {
+  const d = new Date();
+  const dow = (d.getDay() + 6) % 7; // Mon=0
+  const monday = new Date(d);
+  monday.setDate(d.getDate() - dow);
+  const yyyy = monday.getFullYear();
+  const mm = String(monday.getMonth() + 1).padStart(2, '0');
+  const dd = String(monday.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+// GET /api/garden/user/:userId/week
+// No friend check: anyone can read anyone's current week garden.
+exports.getUserThisWeek = async (req, res) => {
+  try {
+    const targetIdRaw = req.params.userId || req.params.id;
+    const targetId = typeof targetIdRaw === 'string' ? targetIdRaw.trim() : targetIdRaw;
+    if (!targetId) return res.status(400).json({ error: 'userId required' });
+
+    const row = await Garden.getThisWeekGardenByUser(targetId);
+    if (row) return res.json(row);
+
+    return res.json({
+      user_id: targetId,
+      week_monday: mondayOfThisWeek(),
+      pot_image: null,
+      image1: null, image2: null, image3: null, image4: null,
+      image5: null, image6: null, image7: null,
+      earned_count: 0,
+      created_at: null,
+      updated_at: null
+    });
+  } catch (err) {
+    console.error('Get user this week garden error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

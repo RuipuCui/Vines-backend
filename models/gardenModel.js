@@ -119,3 +119,19 @@ exports.getFriendsDailyCheckins = async (userId) => {
   const { rows } = await db.query(q, [userId]);
   return rows;
 };
+
+/**
+ * Read a specific user's current week garden (Mon..Sun).
+ * Returns one row from v_weekly_garden_with_count, or null if no record yet.
+ */
+exports.getThisWeekGardenByUser = async (userId) => {
+  const q = `
+    SELECT *
+    FROM v_weekly_garden_with_count
+    WHERE user_id = $1
+      AND week_monday = (date_trunc('week', CURRENT_DATE))::date
+    LIMIT 1;
+  `;
+  const { rows } = await db.query(q, [String(userId).trim()]);
+  return rows[0] || null;
+};
