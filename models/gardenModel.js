@@ -1,9 +1,5 @@
 const db = require('../config/db');
 
-// Insert or update flower for a specific day within the week
-// models/gardenModel.js
-const db = require('../config/db');
-
 /**
  * Upsert a flower_name into the correct day column for the given date.
  * - userId: string
