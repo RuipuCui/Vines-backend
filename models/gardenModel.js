@@ -1,15 +1,25 @@
 const db = require('../config/db');
 
 // Insert or update flower for a specific day within the week
-exports.checkin = async (userId, date, flowerUrl, potUrl = null) => {
-  const query = `
+// models/gardenModel.js
+const db = require('../config/db');
+
+/**
+ * Upsert a flower_name into the correct day column for the given date.
+ * - userId: string
+ * - date: 'YYYY-MM-DD'
+ * - flowerName: e.g. 'camellia'
+ * - potImage: e.g. 'pot1' (optional, set only once per week)
+ */
+exports.checkin = async (userId, date, flowerName, potImage = null) => {
+  const q = `
     WITH params AS (
       SELECT
-        $1::text AS uid,
-        (date_trunc('week', $2::timestamp))::date AS wm,   -- Monday of that week
-        EXTRACT(ISODOW FROM $2::date)::int AS dow,         -- day of week (1-7)
-        $3::text AS furl,
-        $4::text AS purl
+        $1::text  AS uid,
+        (date_trunc('week', $2::date))::date AS wm,   -- Monday (ISO)
+        EXTRACT(ISODOW FROM $2::date)::int  AS dow,   -- 1..7
+        $3::text  AS flower,
+        NULLIF($4::text, '') AS pimg
     )
     INSERT INTO weekly_garden AS wg (
       user_id, week_monday, pot_image,
@@ -17,28 +27,30 @@ exports.checkin = async (userId, date, flowerUrl, potUrl = null) => {
     )
     SELECT
       uid, wm,
-      NULLIF(purl, '') AS pot_image,
-      CASE WHEN dow=1 THEN furl END AS image1,
-      CASE WHEN dow=2 THEN furl END AS image2,
-      CASE WHEN dow=3 THEN furl END AS image3,
-      CASE WHEN dow=4 THEN furl END AS image4,
-      CASE WHEN dow=5 THEN furl END AS image5,
-      CASE WHEN dow=6 THEN furl END AS image6,
-      CASE WHEN dow=7 THEN furl END AS image7
+      pimg AS pot_image,
+      CASE WHEN dow=1 THEN flower END AS image1,
+      CASE WHEN dow=2 THEN flower END AS image2,
+      CASE WHEN dow=3 THEN flower END AS image3,
+      CASE WHEN dow=4 THEN flower END AS image4,
+      CASE WHEN dow=5 THEN flower END AS image5,
+      CASE WHEN dow=6 THEN flower END AS image6,
+      CASE WHEN dow=7 THEN flower END AS image7
     FROM params
     ON CONFLICT (user_id, week_monday) DO UPDATE
     SET
       pot_image = COALESCE(wg.pot_image, EXCLUDED.pot_image),
-      image1 = COALESCE(wg.image1, CASE WHEN EXCLUDED.image1 IS NOT NULL THEN EXCLUDED.image1 END),
-      image2 = COALESCE(wg.image2, CASE WHEN EXCLUDED.image2 IS NOT NULL THEN EXCLUDED.image2 END),
-      image3 = COALESCE(wg.image3, CASE WHEN EXCLUDED.image3 IS NOT NULL THEN EXCLUDED.image3 END),
-      image4 = COALESCE(wg.image4, CASE WHEN EXCLUDED.image4 IS NOT NULL THEN EXCLUDED.image4 END),
-      image5 = COALESCE(wg.image5, CASE WHEN EXCLUDED.image5 IS NOT NULL THEN EXCLUDED.image5 END),
-      image6 = COALESCE(wg.image6, CASE WHEN EXCLUDED.image6 IS NOT NULL THEN EXCLUDED.image6 END),
-      image7 = COALESCE(wg.image7, CASE WHEN EXCLUDED.image7 IS NOT NULL THEN EXCLUDED.image7 END)
+      image1    = COALESCE(wg.image1, EXCLUDED.image1),
+      image2    = COALESCE(wg.image2, EXCLUDED.image2),
+      image3    = COALESCE(wg.image3, EXCLUDED.image3),
+      image4    = COALESCE(wg.image4, EXCLUDED.image4),
+      image5    = COALESCE(wg.image5, EXCLUDED.image5),
+      image6    = COALESCE(wg.image6, EXCLUDED.image6),
+      image7    = COALESCE(wg.image7, EXCLUDED.image7)
     RETURNING *;
   `;
-  const { rows } = await db.query(query, [userId, date, flowerUrl, potUrl]);
+
+  const params = [String(userId).trim(), date, String(flowerName).trim(), potImage];
+  const { rows } = await db.query(q, params);
   return rows[0];
 };
 

@@ -1,19 +1,36 @@
 const Garden = require('../models/gardenModel');
 
-// Handle daily check-in: add a flower to this week
+// Daily check-in: store flower_name (string) into this week's correct day column.
 exports.checkin = async (req, res) => {
   try {
-    const userId = req.user.user_id; // injected from Firebase middleware
-    const { date, flower_url, pot_url } = req.body;
+    const userId = req.user && req.user.user_id;
+    if (!userId) return res.status(401).json({ error: 'unauthorized' });
 
-    if (!date || !flower_url)
-      return res.status(400).json({ error: 'date and flower_url are required' });
+    const { date: dateRaw, flower_name, pot_image } = req.body || {};
 
-    const result = await Garden.checkin(userId, date, flower_url, pot_url);
-    res.status(200).json({ message: 'Check-in recorded successfully', data: result });
+    // flower_name is required
+    if (!flower_name || typeof flower_name !== 'string') {
+      return res.status(400).json({ error: 'flower_name is required (string)' });
+    }
+
+    // date optional, default = today
+    const date = normalizeDate(dateRaw);
+
+    // Write flower_name to database (weekly_garden.imageN)
+    const result = await Garden.checkin(
+      userId,
+      date,
+      flower_name.trim(),
+      (typeof pot_image === 'string' ? pot_image.trim() : null)
+    );
+
+    return res.status(200).json({
+      message: 'Check-in recorded successfully',
+      data: result,
+    });
   } catch (err) {
     console.error('Garden check-in error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
