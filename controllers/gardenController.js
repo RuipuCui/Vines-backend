@@ -154,8 +154,6 @@ exports.getFriendsToday = async (req, res) => {
 };
 
 
-const Garden = require('../models/gardenModel');
-
 // helper: Monday of this week in 'YYYY-MM-DD'
 function mondayOfThisWeek() {
   const d = new Date();
