@@ -67,7 +67,7 @@ exports.getThisWeekGarden = async (req, res) => {
     return res.status(200).json({
       user_id: userId,
       week_monday: weekMonday,
-      pot_image_url: null,
+      pot_image: null,
       image1: null, image2: null, image3: null, image4: null,
       image5: null, image6: null, image7: null,
       earned_count: 0,

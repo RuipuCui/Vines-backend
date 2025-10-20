@@ -7,7 +7,6 @@ const c = require('../controllers/gardenController');
 router.use(auth);
 
 // Daily check-in: add a flower to this week
-// body: { date: "YYYY-MM-DD", flower_url: "https://...", pot_url?: "https://..." }
 router.post('/checkin', c.checkin);
 
 // Get last 4 weeks of garden records (with earned_count)

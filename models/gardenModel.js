@@ -12,12 +12,12 @@ exports.checkin = async (userId, date, flowerUrl, potUrl = null) => {
         $4::text AS purl
     )
     INSERT INTO weekly_garden AS wg (
-      user_id, week_monday, pot_image_url,
+      user_id, week_monday, pot_image,
       image1, image2, image3, image4, image5, image6, image7
     )
     SELECT
       uid, wm,
-      NULLIF(purl, '') AS pot_image_url,
+      NULLIF(purl, '') AS pot_image,
       CASE WHEN dow=1 THEN furl END AS image1,
       CASE WHEN dow=2 THEN furl END AS image2,
       CASE WHEN dow=3 THEN furl END AS image3,
@@ -28,7 +28,7 @@ exports.checkin = async (userId, date, flowerUrl, potUrl = null) => {
     FROM params
     ON CONFLICT (user_id, week_monday) DO UPDATE
     SET
-      pot_image_url = COALESCE(wg.pot_image_url, EXCLUDED.pot_image_url),
+      pot_image = COALESCE(wg.pot_image, EXCLUDED.pot_image),
       image1 = COALESCE(wg.image1, CASE WHEN EXCLUDED.image1 IS NOT NULL THEN EXCLUDED.image1 END),
       image2 = COALESCE(wg.image2, CASE WHEN EXCLUDED.image2 IS NOT NULL THEN EXCLUDED.image2 END),
       image3 = COALESCE(wg.image3, CASE WHEN EXCLUDED.image3 IS NOT NULL THEN EXCLUDED.image3 END),
