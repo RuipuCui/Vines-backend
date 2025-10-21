@@ -1,0 +1,132 @@
+{
+    "Subnets": [
+        {
+            "AvailabilityZoneId": "apse2-az1",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "499419735592",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "project-subnet-public1-ap-southeast-2a"
+                }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:499419735592:subnet/subnet-06261d80620271978",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+                "HostnameType": "ip-name",
+                "EnableResourceNameDnsARecord": false,
+                "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-06261d80620271978",
+            "State": "available",
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "CidrBlock": "10.0.0.0/20",
+            "AvailableIpAddressCount": 4089,
+            "AvailabilityZone": "ap-southeast-2a",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false
+        },
+        {
+            "AvailabilityZoneId": "apse2-az1",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "499419735592",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "project-subnet-private1-ap-southeast-2a"
+                }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:499419735592:subnet/subnet-0ea50bfd30dd3249c",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+                "HostnameType": "ip-name",
+                "EnableResourceNameDnsARecord": false,
+                "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-0ea50bfd30dd3249c",
+            "State": "available",
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "CidrBlock": "10.0.128.0/20",
+            "AvailableIpAddressCount": 4091,
+            "AvailabilityZone": "ap-southeast-2a",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false
+        },
+        {
+            "AvailabilityZoneId": "apse2-az3",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "499419735592",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "project-subnet-public2-ap-southeast-2b"
+                }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:499419735592:subnet/subnet-0246cbcad5dbf9613",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+                "HostnameType": "ip-name",
+                "EnableResourceNameDnsARecord": false,
+                "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-0246cbcad5dbf9613",
+            "State": "available",
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "CidrBlock": "10.0.16.0/20",
+            "AvailableIpAddressCount": 4090,
+            "AvailabilityZone": "ap-southeast-2b",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false
+        },
+        {
+            "AvailabilityZoneId": "apse2-az3",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "499419735592",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "project-subnet-private2-ap-southeast-2b"
+                }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:499419735592:subnet/subnet-05f103e5e1c80bc02",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+                "HostnameType": "ip-name",
+                "EnableResourceNameDnsARecord": false,
+                "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-05f103e5e1c80bc02",
+            "State": "available",
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "CidrBlock": "10.0.144.0/20",
+            "AvailableIpAddressCount": 4091,
+            "AvailabilityZone": "ap-southeast-2b",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false
+        }
+    ]
+}

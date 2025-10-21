@@ -1,0 +1,126 @@
+{
+    "SecurityGroups": [
+        {
+            "GroupId": "sg-073a8f524b66e4a80",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "SecurityGroupArn": "arn:aws:ec2:ap-southeast-2:499419735592:security-group/sg-073a8f524b66e4a80",
+            "OwnerId": "499419735592",
+            "GroupName": "default",
+            "Description": "default VPC security group",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "499419735592",
+                            "GroupId": "sg-073a8f524b66e4a80"
+                        }
+                    ],
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        },
+        {
+            "GroupId": "sg-0b0e5b61608672323",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "SecurityGroupArn": "arn:aws:ec2:ap-southeast-2:499419735592:security-group/sg-0b0e5b61608672323",
+            "OwnerId": "499419735592",
+            "GroupName": "SG-ALB",
+            "Description": "ALB Security Group",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                },
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 443,
+                    "ToPort": 443,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        },
+        {
+            "GroupId": "sg-0411a737c11148d27",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "SecurityGroupArn": "arn:aws:ec2:ap-southeast-2:499419735592:security-group/sg-0411a737c11148d27",
+            "OwnerId": "499419735592",
+            "GroupName": "SG-TASKS",
+            "Description": "Task Security Group",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 3000,
+                    "ToPort": 3000,
+                    "UserIdGroupPairs": [
+                        {
+                            "Description": "Only ALB can talk to this group",
+                            "UserId": "499419735592",
+                            "GroupId": "sg-0b0e5b61608672323"
+                        }
+                    ],
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        }
+    ]
+}

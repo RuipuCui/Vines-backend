@@ -1,0 +1,31 @@
+{
+    "VpcEndpoints": [
+        {
+            "VpcEndpointId": "vpce-0c1d99cc267d9f06d",
+            "VpcEndpointType": "Gateway",
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "ServiceName": "com.amazonaws.ap-southeast-2.s3",
+            "State": "available",
+            "PolicyDocument": "{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"*\",\"Resource\":\"*\"}]}",
+            "RouteTableIds": [
+                "rtb-0e4a0bc507639187d",
+                "rtb-019682d7e0b3f798f"
+            ],
+            "SubnetIds": [],
+            "Groups": [],
+            "PrivateDnsEnabled": false,
+            "RequesterManaged": false,
+            "NetworkInterfaceIds": [],
+            "DnsEntries": [],
+            "CreationTimestamp": "2025-09-18T05:23:16+00:00",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "project-vpce-s3"
+                }
+            ],
+            "OwnerId": "499419735592",
+            "ServiceRegion": "ap-southeast-2"
+        }
+    ]
+}

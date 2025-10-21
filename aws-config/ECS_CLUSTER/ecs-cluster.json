@@ -1,0 +1,22 @@
+{
+    "clusters": [
+        {
+            "clusterArn": "arn:aws:ecs:ap-southeast-2:499419735592:cluster/vines-app-cluster",
+            "clusterName": "vines-app-cluster",
+            "status": "ACTIVE",
+            "registeredContainerInstancesCount": 0,
+            "runningTasksCount": 0,
+            "pendingTasksCount": 0,
+            "activeServicesCount": 1,
+            "statistics": [],
+            "tags": [],
+            "settings": [],
+            "capacityProviders": [
+                "FARGATE",
+                "FARGATE_SPOT"
+            ],
+            "defaultCapacityProviderStrategy": []
+        }
+    ],
+    "failures": []
+}

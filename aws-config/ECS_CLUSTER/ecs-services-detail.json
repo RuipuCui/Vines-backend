@@ -1,0 +1,601 @@
+{
+    "services": [
+        {
+            "serviceArn": "arn:aws:ecs:ap-southeast-2:499419735592:service/vines-app-cluster/vines-api-service-1f8qwue9",
+            "serviceName": "vines-api-service-1f8qwue9",
+            "clusterArn": "arn:aws:ecs:ap-southeast-2:499419735592:cluster/vines-app-cluster",
+            "loadBalancers": [
+                {
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31",
+                    "containerName": "vines-api",
+                    "containerPort": 3000
+                }
+            ],
+            "serviceRegistries": [],
+            "status": "ACTIVE",
+            "desiredCount": 0,
+            "runningCount": 0,
+            "pendingCount": 0,
+            "capacityProviderStrategy": [
+                {
+                    "capacityProvider": "FARGATE",
+                    "weight": 1,
+                    "base": 0
+                }
+            ],
+            "platformVersion": "LATEST",
+            "platformFamily": "Linux",
+            "taskDefinition": "arn:aws:ecs:ap-southeast-2:499419735592:task-definition/vines-api:6",
+            "deploymentConfiguration": {
+                "deploymentCircuitBreaker": {
+                    "enable": true,
+                    "rollback": true
+                },
+                "maximumPercent": 200,
+                "minimumHealthyPercent": 100,
+                "strategy": "ROLLING",
+                "bakeTimeInMinutes": 0
+            },
+            "deployments": [
+                {
+                    "id": "ecs-svc/0580208848180669484",
+                    "status": "PRIMARY",
+                    "taskDefinition": "arn:aws:ecs:ap-southeast-2:499419735592:task-definition/vines-api:6",
+                    "desiredCount": 0,
+                    "pendingCount": 0,
+                    "runningCount": 0,
+                    "failedTasks": 0,
+                    "createdAt": "2025-09-26T18:36:30.345000+10:00",
+                    "updatedAt": "2025-10-21T11:20:34.945000+11:00",
+                    "capacityProviderStrategy": [
+                        {
+                            "capacityProvider": "FARGATE",
+                            "weight": 1,
+                            "base": 0
+                        }
+                    ],
+                    "platformVersion": "1.4.0",
+                    "platformFamily": "Linux",
+                    "networkConfiguration": {
+                        "awsvpcConfiguration": {
+                            "subnets": [
+                                "subnet-05f103e5e1c80bc02",
+                                "subnet-0ea50bfd30dd3249c"
+                            ],
+                            "securityGroups": [
+                                "sg-0411a737c11148d27"
+                            ],
+                            "assignPublicIp": "DISABLED"
+                        }
+                    },
+                    "rolloutState": "COMPLETED",
+                    "rolloutStateReason": "ECS deployment ecs-svc/0580208848180669484 completed."
+                }
+            ],
+            "roleArn": "arn:aws:iam::499419735592:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+            "events": [
+                {
+                    "id": "0907ce35-914c-4f82-92b2-fd531775bdc0",
+                    "createdAt": "2025-10-21T17:20:41.520000+11:00",
+                    "message": "(service vines-api-service-1f8qwue9) has reached a steady state."
+                },
+                {
+                    "id": "4bb061b4-e5f7-4722-bdb8-543289cfc0b7",
+                    "createdAt": "2025-10-21T11:20:34.954000+11:00",
+                    "message": "(service vines-api-service-1f8qwue9) has reached a steady state."
+                },
+                {
+                    "id": "5ae86a91-8241-4306-aadd-2820038adcee",
+                    "createdAt": "2025-10-21T11:20:34.953000+11:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/0580208848180669484) deployment completed."
+                },
+                {
+                    "id": "7b85b8af-3051-497a-9406-a45711931d8c",
+                    "createdAt": "2025-10-12T02:45:21.928000+11:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/0580208848180669484) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "000d01c3-5fbe-4994-81ca-f1d76206249c",
+                    "createdAt": "2025-10-12T02:45:21.924000+11:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "eaa991fd-da21-4678-8f73-64deacdccd12",
+                    "createdAt": "2025-09-26T19:04:38.420000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/0580208848180669484) deployment failed: tasks failed to start."
+                },
+                {
+                    "id": "e79567f1-f0ae-4c8c-bee1-80ab2902504e",
+                    "createdAt": "2025-09-26T19:02:14.342000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/0580208848180669484) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "679ad9f7-a7d0-4356-8b44-4d8fc322dba2",
+                    "createdAt": "2025-09-26T19:02:14.336000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "7dd196bd-9997-451c-8fd1-4096df723bcc",
+                    "createdAt": "2025-09-26T19:02:04.120000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has stopped 1 running tasks: (task ede261870780400a9efa143cc5dab7ce)."
+                },
+                {
+                    "id": "adb88951-1bf3-4f1a-b9db-a61f2166071c",
+                    "createdAt": "2025-09-26T19:02:04.119000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (task ede261870780400a9efa143cc5dab7ce) failed container health checks."
+                },
+                {
+                    "id": "6fb4d18c-cca8-43dc-879c-13be795583e4",
+                    "createdAt": "2025-09-26T18:59:53.450000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "a3d623a0-131c-48f8-a256-ee627f007953",
+                    "createdAt": "2025-09-26T18:59:21.520000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task bc283c985e42495698b0abfb265aee91). Amazon ECS replaced 1 tasks due to an unhealthy status."
+                },
+                {
+                    "id": "5db118d6-4ff5-490d-8d07-524ad8729de4",
+                    "createdAt": "2025-09-26T18:53:04.069000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/0580208848180669484) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "c711b977-b90c-49fe-b1c7-21bf449f8e92",
+                    "createdAt": "2025-09-26T18:53:04.064000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "d5f5a466-cf24-40e1-82a0-34cc0822fb57",
+                    "createdAt": "2025-09-26T18:52:53.040000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has stopped 1 running tasks: (task f0d55f8ed58640d7b624278d5f969bfc)."
+                },
+                {
+                    "id": "1733124e-8785-4c8b-9f9b-f516144a4583",
+                    "createdAt": "2025-09-26T18:52:53.039000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (task f0d55f8ed58640d7b624278d5f969bfc) failed container health checks."
+                },
+                {
+                    "id": "88e04055-504d-47b0-8c13-05519a2a690f",
+                    "createdAt": "2025-09-26T18:50:45.609000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "ecf59ac6-23ee-4d83-8148-f63f24ea83b6",
+                    "createdAt": "2025-09-26T18:50:12.415000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task ede261870780400a9efa143cc5dab7ce). Amazon ECS replaced 1 tasks due to an unhealthy status."
+                },
+                {
+                    "id": "36994867-ecf8-4790-adb8-6f44948ab5b5",
+                    "createdAt": "2025-09-26T18:43:54.212000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/0580208848180669484) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "08a890e3-aff0-4885-9abb-32a653c60d4c",
+                    "createdAt": "2025-09-26T18:43:54.207000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "5c09a569-6f2f-48a5-96fb-d203846839f5",
+                    "createdAt": "2025-09-26T18:43:43.249000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has stopped 1 running tasks: (task bda0d58db25444d6aee3636f8a6b28f4)."
+                },
+                {
+                    "id": "938c11bb-aa13-46c9-8885-c322f2a2902e",
+                    "createdAt": "2025-09-26T18:43:43.248000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (task bda0d58db25444d6aee3636f8a6b28f4) failed container health checks."
+                },
+                {
+                    "id": "02559599-5d89-43d2-bf67-c293914f7d53",
+                    "createdAt": "2025-09-26T18:41:34.876000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "bf002eed-42a9-49b0-9e3d-9637ef5c93a2",
+                    "createdAt": "2025-09-26T18:41:01.978000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task f0d55f8ed58640d7b624278d5f969bfc). Amazon ECS replaced 1 tasks due to an unhealthy status."
+                },
+                {
+                    "id": "09554d73-8c46-42a0-9763-a840afb2f507",
+                    "createdAt": "2025-09-26T18:38:09.286000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "ced368f9-b965-4a6c-9cde-61a4e41187e7",
+                    "createdAt": "2025-09-26T18:37:36.927000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task bda0d58db25444d6aee3636f8a6b28f4)."
+                },
+                {
+                    "id": "693b1538-c1ed-4134-90bc-4b40057ebe62",
+                    "createdAt": "2025-09-26T18:36:33.873000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "7412ccc5-b7df-44bb-8394-c073271dd8bf",
+                    "createdAt": "2025-09-26T18:36:33.800000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/3814860587015336326) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "979cf3ea-d064-48cc-a2ed-d5bb488168a7",
+                    "createdAt": "2025-09-26T18:36:33.792000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "5582c4b2-5832-437f-96cb-432c7e4d1113",
+                    "createdAt": "2025-09-26T18:36:08.202000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "285b49c3-9c8a-4f35-a90d-8c848288a9a6",
+                    "createdAt": "2025-09-26T18:35:29.537000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task b5caa0164cfa496f8b2b91c483e28813)."
+                },
+                {
+                    "id": "8444638d-b6c7-411d-99a1-de727ef675bf",
+                    "createdAt": "2025-09-26T18:34:47.557000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/3814860587015336326) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "b02951a8-dcef-4985-bd1a-1d0bb8045c15",
+                    "createdAt": "2025-09-26T18:34:47.553000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "9f103233-0d6c-481a-b0ba-1be0626386f7",
+                    "createdAt": "2025-09-26T18:34:28.946000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "dc4b5653-9a50-43d8-9ffe-d5932ccd8d4b",
+                    "createdAt": "2025-09-26T18:33:59.909000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 29d98267d58c4e78be146072e6e86d29)."
+                },
+                {
+                    "id": "940087c6-a00d-4185-a7aa-1b533a47ee4c",
+                    "createdAt": "2025-09-26T18:30:14.522000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "84741cfb-48d0-418d-8022-f52273d36dc2",
+                    "createdAt": "2025-09-26T18:30:14.465000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/3814860587015336326) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "e7bf1eb5-2724-4a87-8556-8531dcd459bb",
+                    "createdAt": "2025-09-26T18:30:14.460000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "5b301e2b-dcb9-4b9b-96e1-95c2fc9fb555",
+                    "createdAt": "2025-09-26T18:29:34.841000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "956f8066-02c4-4353-afb4-2d5da7be394c",
+                    "createdAt": "2025-09-26T18:28:55.665000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 0f673e4e2bfe493788a8925e11760c46)."
+                },
+                {
+                    "id": "e22d9b0d-1577-42b7-88da-ce0093145f10",
+                    "createdAt": "2025-09-26T18:28:45.582000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "1f9fa304-d53a-419d-b869-297e6cc0a954",
+                    "createdAt": "2025-09-26T18:28:45.527000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/3814860587015336326) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "0aa9cc5e-149f-4d39-a58c-beb771dc326b",
+                    "createdAt": "2025-09-26T18:28:45.522000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "ef99cfcd-a9ed-439d-9a78-d094ad60d132",
+                    "createdAt": "2025-09-26T18:28:06.717000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "0f36d227-66c6-46ef-b3f2-f8c882650db5",
+                    "createdAt": "2025-09-26T18:27:33.921000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task eaa224b1653e4af1ab606c018a0bc4f5)."
+                },
+                {
+                    "id": "5b94b697-054d-40e7-b6c1-80cd0de2136a",
+                    "createdAt": "2025-09-26T18:20:10.048000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "de3148ce-ea9c-4c80-8250-0505675db956",
+                    "createdAt": "2025-09-26T18:20:09.975000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/2297595553120890127) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "583db672-e471-4276-862b-c1511027614c",
+                    "createdAt": "2025-09-26T18:20:09.971000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "aaedcc4e-8248-4d6d-b0f1-b4205d19cdc2",
+                    "createdAt": "2025-09-26T18:19:46.801000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/2297595553120890127) deployment failed: tasks failed to start."
+                },
+                {
+                    "id": "c5798f4e-d927-4d69-a7be-16ef4d18b3f6",
+                    "createdAt": "2025-09-26T18:19:28.388000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "a2ecc653-7b26-408d-99ba-e589ca19744f",
+                    "createdAt": "2025-09-26T18:18:57.994000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task f63cddc1a6cd48369779b09283dc1404)."
+                },
+                {
+                    "id": "fe853098-c9dd-4d51-b5d1-b729da3a7301",
+                    "createdAt": "2025-09-26T18:14:18.918000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/2297595553120890127) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "0c121807-dda6-4d7d-8cd2-ec8a2c930ec0",
+                    "createdAt": "2025-09-26T18:14:18.913000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "ac58238b-f21b-4180-96ee-7e9602caed39",
+                    "createdAt": "2025-09-26T18:14:09.666000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "633ab594-53bf-44b3-969b-9ba8ceb60410",
+                    "createdAt": "2025-09-26T18:13:40.779000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task cb8c69aff33a4936a0e47d7bf25447c7)."
+                },
+                {
+                    "id": "374de678-7bc4-4a95-9c94-7f29f444fb4e",
+                    "createdAt": "2025-09-26T18:13:39.910000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/2297595553120890127) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "ccbc683b-0d24-4217-8191-611eec942876",
+                    "createdAt": "2025-09-26T18:13:39.906000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "0465cc39-fbff-4c46-a02c-9b2bece27f55",
+                    "createdAt": "2025-09-26T18:13:30.410000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "241e6f6b-edb3-4ed3-ae75-49c290613c35",
+                    "createdAt": "2025-09-26T18:13:01.932000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task b5f8cbc49cec4460ad82dfd026adeef0)."
+                },
+                {
+                    "id": "e0c81569-d796-40b6-af93-26b02903caaa",
+                    "createdAt": "2025-09-26T18:08:26.543000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/2297595553120890127) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "5f712af4-3947-4cd7-94ce-829763f9f125",
+                    "createdAt": "2025-09-26T18:08:26.538000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "5abfb104-33e4-4207-99ee-57ca3c38a9ea",
+                    "createdAt": "2025-09-26T18:08:17.314000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "d1b9edb0-e250-4e19-8841-fddeb9d8970c",
+                    "createdAt": "2025-09-26T18:07:49.863000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 959146a95f1741a7862ebe7902a294b5)."
+                },
+                {
+                    "id": "3762814d-52bf-4854-9641-0825825c3c25",
+                    "createdAt": "2025-09-26T18:07:49.094000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/2297595553120890127) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "442d2744-32ea-4de7-af30-70b108780b14",
+                    "createdAt": "2025-09-26T18:07:49.090000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "b73054ed-985c-45c5-a565-cbe4f5d945c2",
+                    "createdAt": "2025-09-26T18:07:15.965000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "52b6856c-d5ed-41fa-b9e1-3a663bf4bc93",
+                    "createdAt": "2025-09-26T18:06:44.343000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 1a397c3fe23d478a9d86c818092b7429)."
+                },
+                {
+                    "id": "9df863cd-f21d-44e7-a258-e89ca16db81f",
+                    "createdAt": "2025-09-26T18:02:47.417000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/7961144655433538209) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "28910504-eca7-4300-948f-d76b595b1550",
+                    "createdAt": "2025-09-26T18:02:47.412000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "27d30619-f28c-40d4-86a6-d538dd391f1f",
+                    "createdAt": "2025-09-26T18:02:24.337000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "b424e894-09bf-41fa-bdfb-5bace11c0db8",
+                    "createdAt": "2025-09-26T18:01:58.923000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/7961144655433538209) deployment failed: tasks failed to start."
+                },
+                {
+                    "id": "ef09ccee-5a38-4136-911f-de833b724693",
+                    "createdAt": "2025-09-26T18:01:53.911000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 1957ea0e982c45db9c808541b653aecd)."
+                },
+                {
+                    "id": "db0a899f-ec2e-4a65-bd71-dfe2e52d6230",
+                    "createdAt": "2025-09-26T17:57:22.971000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/7961144655433538209) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "01cc17de-cebf-46a5-a7c9-606cb010687a",
+                    "createdAt": "2025-09-26T17:57:22.966000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "13f34e32-8552-41bf-81b9-cccc0f8dae45",
+                    "createdAt": "2025-09-26T17:57:02.284000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "442cb8d2-1167-4fcb-b264-7aa0ddc76377",
+                    "createdAt": "2025-09-26T17:56:39.791000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "4603ee25-5b0e-4b14-896e-4cdd189093c5",
+                    "createdAt": "2025-09-26T17:56:39.720000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/7961144655433538209) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "41911cfc-4c7e-4669-b7ad-250ceaa2e8ec",
+                    "createdAt": "2025-09-26T17:56:39.715000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "117113ed-6b6f-45af-a576-ae0020375de4",
+                    "createdAt": "2025-09-26T17:56:30.323000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 7955e73f83634244bb3f512fb1af1ec5). Amazon ECS replaced 1 tasks due to an unhealthy status."
+                },
+                {
+                    "id": "7d56a00a-68bf-47db-89bb-285c2b67d48a",
+                    "createdAt": "2025-09-26T17:55:46.643000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "8e775407-b641-44ea-815a-c44254d204d6",
+                    "createdAt": "2025-09-26T17:55:15.612000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task b98dfa9413f0484bbc7a50545dc04193)."
+                },
+                {
+                    "id": "87dde7c3-b1f6-48aa-ac52-b1a576a40916",
+                    "createdAt": "2025-09-26T17:50:54.606000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/7961144655433538209) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "1995ab8f-e4d1-443f-a81f-eece4b2133de",
+                    "createdAt": "2025-09-26T17:50:54.602000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "1a6b9cce-ab63-427c-b7fa-69c63a98f7dd",
+                    "createdAt": "2025-09-26T17:50:34.765000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "d9cbbd61-16b8-4659-9ac5-7f5cc83d3cba",
+                    "createdAt": "2025-09-26T17:50:01.831000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 849d213932874095849a15f68f15ef49)."
+                },
+                {
+                    "id": "0d653126-9547-45ef-a4c0-79f2b2446798",
+                    "createdAt": "2025-09-26T17:50:01.110000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9, taskSet ecs-svc/7961144655433538209) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "f8637e1b-7f3a-41fc-8673-3448eb59e299",
+                    "createdAt": "2025-09-26T17:50:01.105000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "09be2730-fa97-4a66-a3af-c04007ee3d51",
+                    "createdAt": "2025-09-26T17:49:39.744000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) registered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31)"
+                },
+                {
+                    "id": "10ad2a7e-400e-418e-866f-ddfe0dad28bb",
+                    "createdAt": "2025-09-26T17:49:07.626000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 88d51a780c01484faff99b3b60ba9a40)."
+                },
+                {
+                    "id": "45c3f659-9e7d-4f34-bd95-d9b05e77a42c",
+                    "createdAt": "2025-09-26T17:45:01.904000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task ebbbf920bc3949d18c125d318cb99459)."
+                },
+                {
+                    "id": "d768c3b7-6c76-4eaf-ba4b-5af5f84650e7",
+                    "createdAt": "2025-09-26T17:39:33.591000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 5c35cd0fbc914f40b66cb61b3fed67e8)."
+                },
+                {
+                    "id": "665cf018-969a-4dd0-a45d-96fde10ced1e",
+                    "createdAt": "2025-09-26T17:38:32.452000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 75c70473190c43ed8a62565f244ab2dc)."
+                },
+                {
+                    "id": "8e37545a-273b-42cf-90ce-5e464f32ddbb",
+                    "createdAt": "2025-09-26T17:37:28.707000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task d8cc5b64310742a49c5abc60a3a7755e)."
+                },
+                {
+                    "id": "8f6c9cb9-46b4-4d29-bec4-8a77ca94ce49",
+                    "createdAt": "2025-09-26T17:26:24.457000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/8932554811743774702) deployment failed: tasks failed to start."
+                },
+                {
+                    "id": "a48a2a2d-beb9-4645-b621-1845d9a46965",
+                    "createdAt": "2025-09-26T17:25:58.837000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task e8290228876144949e36e7557f36e08d)."
+                },
+                {
+                    "id": "122c24b6-3d26-4d7d-ac0d-c094cc35aa4c",
+                    "createdAt": "2025-09-26T17:25:00.465000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 91c2310e3ca3493c914198d1fa8c08e2)."
+                },
+                {
+                    "id": "4cc1086d-274a-4ccc-957a-8058ab27d66c",
+                    "createdAt": "2025-09-26T17:24:00.997000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 98304a4d001b44fbb0a5fd93c87823c3)."
+                },
+                {
+                    "id": "582b2039-c91e-4623-bd32-c59059f75f51",
+                    "createdAt": "2025-09-26T17:23:28.549000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) has started 1 tasks: (task 2ccf5310a4044ae39ae71620d2167097)."
+                },
+                {
+                    "id": "ff91b21e-de3e-4dec-a822-22c1c784ca4d",
+                    "createdAt": "2025-09-23T16:54:04.759000+10:00",
+                    "message": "(service vines-api-service-1f8qwue9) (deployment ecs-svc/7899981163485607180) deployment failed: tasks failed to start."
+                }
+            ],
+            "createdAt": "2025-09-23T16:50:56.448000+10:00",
+            "placementConstraints": [],
+            "placementStrategy": [],
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "subnets": [
+                        "subnet-05f103e5e1c80bc02",
+                        "subnet-0ea50bfd30dd3249c"
+                    ],
+                    "securityGroups": [
+                        "sg-0411a737c11148d27"
+                    ],
+                    "assignPublicIp": "DISABLED"
+                }
+            },
+            "healthCheckGracePeriodSeconds": 30,
+            "schedulingStrategy": "REPLICA",
+            "deploymentController": {
+                "type": "ECS"
+            },
+            "createdBy": "arn:aws:iam::499419735592:root",
+            "enableECSManagedTags": true,
+            "propagateTags": "NONE",
+            "enableExecuteCommand": false,
+            "availabilityZoneRebalancing": "ENABLED"
+        }
+    ],
+    "failures": []
+}
