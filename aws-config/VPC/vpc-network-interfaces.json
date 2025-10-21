@@ -1,0 +1,175 @@
+{
+    "NetworkInterfaces": [
+        {
+            "Association": {
+                "IpOwnerId": "amazon-elb",
+                "PublicDnsName": "ec2-52-64-249-158.ap-southeast-2.compute.amazonaws.com",
+                "PublicIp": "52.64.249.158"
+            },
+            "Attachment": {
+                "AttachTime": "2025-10-20T02:22:17+00:00",
+                "AttachmentId": "eni-attach-039908bdb53b87735",
+                "DeleteOnTermination": false,
+                "DeviceIndex": 1,
+                "NetworkCardIndex": 0,
+                "InstanceOwnerId": "amazon-elb",
+                "Status": "attached"
+            },
+            "AvailabilityZone": "ap-southeast-2b",
+            "Description": "ELB app/my-vines-app-alb/daf4e4bda6fb2798",
+            "Groups": [
+                {
+                    "GroupId": "sg-0b0e5b61608672323",
+                    "GroupName": "SG-ALB"
+                }
+            ],
+            "InterfaceType": "interface",
+            "Ipv6Addresses": [],
+            "MacAddress": "06:95:67:3f:e6:4f",
+            "NetworkInterfaceId": "eni-04994f49561abcbe7",
+            "OwnerId": "499419735592",
+            "PrivateDnsName": "ip-10-0-29-8.ap-southeast-2.compute.internal",
+            "PublicDnsName": "ec2-52-64-249-158.ap-southeast-2.compute.amazonaws.com",
+            "PublicIpDnsNameOptions": {
+                "DnsHostnameType": "public-ipv4-dns-name",
+                "PublicIpv4DnsName": "ec2-52-64-249-158.ap-southeast-2.compute.amazonaws.com"
+            },
+            "PrivateIpAddress": "10.0.29.8",
+            "PrivateIpAddresses": [
+                {
+                    "Association": {
+                        "IpOwnerId": "amazon-elb",
+                        "PublicDnsName": "ec2-52-64-249-158.ap-southeast-2.compute.amazonaws.com",
+                        "PublicIp": "52.64.249.158"
+                    },
+                    "Primary": true,
+                    "PrivateDnsName": "ip-10-0-29-8.ap-southeast-2.compute.internal",
+                    "PrivateIpAddress": "10.0.29.8"
+                }
+            ],
+            "RequesterId": "amazon-elb",
+            "RequesterManaged": true,
+            "SourceDestCheck": true,
+            "Status": "in-use",
+            "SubnetId": "subnet-0246cbcad5dbf9613",
+            "TagSet": [],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "Operator": {
+                "Managed": false
+            }
+        },
+        {
+            "Association": {
+                "IpOwnerId": "amazon-elb",
+                "PublicDnsName": "ec2-54-252-16-167.ap-southeast-2.compute.amazonaws.com",
+                "PublicIp": "54.252.16.167"
+            },
+            "Attachment": {
+                "AttachTime": "2025-10-20T11:34:35+00:00",
+                "AttachmentId": "eni-attach-03241e547c3327d46",
+                "DeleteOnTermination": false,
+                "DeviceIndex": 1,
+                "NetworkCardIndex": 0,
+                "InstanceOwnerId": "amazon-elb",
+                "Status": "attached"
+            },
+            "AvailabilityZone": "ap-southeast-2a",
+            "Description": "ELB app/my-vines-app-alb/daf4e4bda6fb2798",
+            "Groups": [
+                {
+                    "GroupId": "sg-0b0e5b61608672323",
+                    "GroupName": "SG-ALB"
+                }
+            ],
+            "InterfaceType": "interface",
+            "Ipv6Addresses": [],
+            "MacAddress": "02:39:3b:3f:83:9d",
+            "NetworkInterfaceId": "eni-03dce3d4da9227e52",
+            "OwnerId": "499419735592",
+            "PrivateDnsName": "ip-10-0-15-201.ap-southeast-2.compute.internal",
+            "PublicDnsName": "ec2-54-252-16-167.ap-southeast-2.compute.amazonaws.com",
+            "PublicIpDnsNameOptions": {
+                "DnsHostnameType": "public-ipv4-dns-name",
+                "PublicIpv4DnsName": "ec2-54-252-16-167.ap-southeast-2.compute.amazonaws.com"
+            },
+            "PrivateIpAddress": "10.0.15.201",
+            "PrivateIpAddresses": [
+                {
+                    "Association": {
+                        "IpOwnerId": "amazon-elb",
+                        "PublicDnsName": "ec2-54-252-16-167.ap-southeast-2.compute.amazonaws.com",
+                        "PublicIp": "54.252.16.167"
+                    },
+                    "Primary": true,
+                    "PrivateDnsName": "ip-10-0-15-201.ap-southeast-2.compute.internal",
+                    "PrivateIpAddress": "10.0.15.201"
+                }
+            ],
+            "RequesterId": "amazon-elb",
+            "RequesterManaged": true,
+            "SourceDestCheck": true,
+            "Status": "in-use",
+            "SubnetId": "subnet-06261d80620271978",
+            "TagSet": [],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "Operator": {
+                "Managed": false
+            }
+        },
+        {
+            "Association": {
+                "AllocationId": "eipalloc-0e48273723e44074c",
+                "AssociationId": "eipassoc-01dd512bdaef9cf87",
+                "IpOwnerId": "499419735592",
+                "PublicDnsName": "ec2-3-104-158-129.ap-southeast-2.compute.amazonaws.com",
+                "PublicIp": "3.104.158.129"
+            },
+            "Attachment": {
+                "AttachmentId": "ela-attach-078b0b4e8d375d76b",
+                "DeleteOnTermination": false,
+                "DeviceIndex": 1,
+                "InstanceOwnerId": "amazon-aws",
+                "Status": "attached"
+            },
+            "AvailabilityZone": "ap-southeast-2a",
+            "Description": "Interface for NAT Gateway nat-017e896b92a21b6b2",
+            "Groups": [],
+            "InterfaceType": "nat_gateway",
+            "Ipv6Addresses": [],
+            "MacAddress": "02:dc:fd:02:da:7f",
+            "NetworkInterfaceId": "eni-00498b14bad5691a2",
+            "OwnerId": "499419735592",
+            "PrivateDnsName": "ip-10-0-12-193.ap-southeast-2.compute.internal",
+            "PublicDnsName": "ec2-3-104-158-129.ap-southeast-2.compute.amazonaws.com",
+            "PublicIpDnsNameOptions": {
+                "DnsHostnameType": "public-ipv4-dns-name",
+                "PublicIpv4DnsName": "ec2-3-104-158-129.ap-southeast-2.compute.amazonaws.com"
+            },
+            "PrivateIpAddress": "10.0.12.193",
+            "PrivateIpAddresses": [
+                {
+                    "Association": {
+                        "AllocationId": "eipalloc-0e48273723e44074c",
+                        "AssociationId": "eipassoc-01dd512bdaef9cf87",
+                        "IpOwnerId": "499419735592",
+                        "PublicDnsName": "ec2-3-104-158-129.ap-southeast-2.compute.amazonaws.com",
+                        "PublicIp": "3.104.158.129"
+                    },
+                    "Primary": true,
+                    "PrivateDnsName": "ip-10-0-12-193.ap-southeast-2.compute.internal",
+                    "PrivateIpAddress": "10.0.12.193"
+                }
+            ],
+            "RequesterId": "502053239149",
+            "RequesterManaged": true,
+            "SourceDestCheck": false,
+            "Status": "in-use",
+            "SubnetId": "subnet-06261d80620271978",
+            "TagSet": [],
+            "VpcId": "vpc-0ab9d2176a77ffa06",
+            "Operator": {
+                "Managed": false
+            }
+        }
+    ]
+}

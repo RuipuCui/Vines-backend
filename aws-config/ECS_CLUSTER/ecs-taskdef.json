@@ -1,0 +1,134 @@
+{
+    "taskDefinition": {
+        "taskDefinitionArn": "arn:aws:ecs:ap-southeast-2:499419735592:task-definition/vines-api:6",
+        "containerDefinitions": [
+            {
+                "name": "vines-api",
+                "image": "499419735592.dkr.ecr.ap-southeast-2.amazonaws.com/vines-backend@sha256:b3daaf603c9370066ab6dddb793e4c77362f0e073418946e17f09556fdd9fc3e",
+                "cpu": 0,
+                "portMappings": [
+                    {
+                        "containerPort": 3000,
+                        "hostPort": 3000,
+                        "protocol": "tcp",
+                        "name": "vines-api-3000-tcp",
+                        "appProtocol": "http"
+                    }
+                ],
+                "essential": true,
+                "environment": [
+                    {
+                        "name": "PORT",
+                        "value": "3000"
+                    }
+                ],
+                "environmentFiles": [
+                    {
+                        "value": "arn:aws:s3:::vine-app/vines.env",
+                        "type": "s3"
+                    }
+                ],
+                "mountPoints": [],
+                "volumesFrom": [],
+                "secrets": [
+                    {
+                        "name": "DB_PASSWORD",
+                        "valueFrom": "arn:aws:ssm:ap-southeast-2:499419735592:parameter/vines-app/DB_PASSWORD"
+                    },
+                    {
+                        "name": "FIREBASE_PRIVATE_KEY",
+                        "valueFrom": "arn:aws:ssm:ap-southeast-2:499419735592:parameter/vines-app/FIREBASE_PRIVATE_KEY"
+                    }
+                ],
+                "ulimits": [],
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "/ecs/vines-api",
+                        "awslogs-create-group": "true",
+                        "awslogs-region": "ap-southeast-2",
+                        "awslogs-stream-prefix": "app"
+                    },
+                    "secretOptions": []
+                },
+                "healthCheck": {
+                    "command": [
+                        "CMD-SHELL\"",
+                        "wget -qO- http://127.0.0.1:3000/health || exit 1"
+                    ],
+                    "interval": 30,
+                    "timeout": 5,
+                    "retries": 3,
+                    "startPeriod": 10
+                },
+                "systemControls": []
+            }
+        ],
+        "family": "vines-api",
+        "taskRoleArn": "arn:aws:iam::499419735592:role/vines-app-s3-and-ssm",
+        "executionRoleArn": "arn:aws:iam::499419735592:role/ecsTaskExecutionRole",
+        "networkMode": "awsvpc",
+        "revision": 6,
+        "volumes": [],
+        "status": "ACTIVE",
+        "requiresAttributes": [
+            {
+                "name": "ecs.capability.execution-role-awslogs"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.ecr-auth"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.task-iam-role"
+            },
+            {
+                "name": "ecs.capability.container-health-check"
+            },
+            {
+                "name": "ecs.capability.execution-role-ecr-pull"
+            },
+            {
+                "name": "ecs.capability.secrets.ssm.environment-variables"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+            },
+            {
+                "name": "ecs.capability.task-eni"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+            },
+            {
+                "name": "ecs.capability.env-files.s3"
+            }
+        ],
+        "placementConstraints": [],
+        "compatibilities": [
+            "EC2",
+            "FARGATE"
+        ],
+        "runtimePlatform": {
+            "cpuArchitecture": "ARM64",
+            "operatingSystemFamily": "LINUX"
+        },
+        "requiresCompatibilities": [
+            "FARGATE"
+        ],
+        "cpu": "256",
+        "memory": "512",
+        "registeredAt": "2025-09-26T18:36:17.564000+10:00",
+        "registeredBy": "arn:aws:iam::499419735592:root",
+        "enableFaultInjection": false
+    },
+    "tags": []
+}
