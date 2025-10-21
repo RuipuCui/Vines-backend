@@ -1,0 +1,58 @@
+{
+    "Listeners": [
+        {
+            "ListenerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:listener/app/my-vines-app-alb/daf4e4bda6fb2798/3e9aafcca6d8a0c7",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:loadbalancer/app/my-vines-app-alb/daf4e4bda6fb2798",
+            "Port": 80,
+            "Protocol": "HTTP",
+            "DefaultActions": [
+                {
+                    "Type": "redirect",
+                    "Order": 1,
+                    "RedirectConfig": {
+                        "Protocol": "HTTPS",
+                        "Port": "443",
+                        "Host": "#{host}",
+                        "Path": "/#{path}",
+                        "Query": "#{query}",
+                        "StatusCode": "HTTP_301"
+                    }
+                }
+            ]
+        },
+        {
+            "ListenerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:listener/app/my-vines-app-alb/daf4e4bda6fb2798/6b7bd897580cba98",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:loadbalancer/app/my-vines-app-alb/daf4e4bda6fb2798",
+            "Port": 443,
+            "Protocol": "HTTPS",
+            "Certificates": [
+                {
+                    "CertificateArn": "arn:aws:acm:ap-southeast-2:499419735592:certificate/44061a61-ed07-4ef2-831b-8baf2f83bc70"
+                }
+            ],
+            "SslPolicy": "ELBSecurityPolicy-TLS13-1-2-Res-2021-06",
+            "DefaultActions": [
+                {
+                    "Type": "forward",
+                    "TargetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31",
+                    "Order": 1,
+                    "ForwardConfig": {
+                        "TargetGroups": [
+                            {
+                                "TargetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-2:499419735592:targetgroup/vines-app-target-group/37bab1242a468b31",
+                                "Weight": 1
+                            }
+                        ],
+                        "TargetGroupStickinessConfig": {
+                            "Enabled": false,
+                            "DurationSeconds": 3600
+                        }
+                    }
+                }
+            ],
+            "MutualAuthentication": {
+                "Mode": "off"
+            }
+        }
+    ]
+}
