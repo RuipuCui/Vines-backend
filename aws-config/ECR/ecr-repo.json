@@ -1,0 +1,18 @@
+{
+    "repositories": [
+        {
+            "repositoryArn": "arn:aws:ecr:ap-southeast-2:499419735592:repository/vines-backend",
+            "registryId": "499419735592",
+            "repositoryName": "vines-backend",
+            "repositoryUri": "499419735592.dkr.ecr.ap-southeast-2.amazonaws.com/vines-backend",
+            "createdAt": "2025-09-17T17:59:53.334000+10:00",
+            "imageTagMutability": "MUTABLE",
+            "imageScanningConfiguration": {
+                "scanOnPush": false
+            },
+            "encryptionConfiguration": {
+                "encryptionType": "AES256"
+            }
+        }
+    ]
+}

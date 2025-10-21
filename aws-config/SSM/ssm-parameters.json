@@ -1,0 +1,30 @@
+{
+    "Parameters": [
+        {
+            "Name": "/vines-app/DB_PASSWORD",
+            "ARN": "arn:aws:ssm:ap-southeast-2:499419735592:parameter/vines-app/DB_PASSWORD",
+            "Type": "SecureString",
+            "KeyId": "alias/aws/ssm",
+            "LastModifiedDate": "2025-09-21T17:29:24.393000+10:00",
+            "LastModifiedUser": "arn:aws:iam::499419735592:root",
+            "Description": "secret for access database",
+            "Version": 1,
+            "Tier": "Standard",
+            "Policies": [],
+            "DataType": "text"
+        },
+        {
+            "Name": "/vines-app/FIREBASE_PRIVATE_KEY",
+            "ARN": "arn:aws:ssm:ap-southeast-2:499419735592:parameter/vines-app/FIREBASE_PRIVATE_KEY",
+            "Type": "SecureString",
+            "KeyId": "alias/aws/ssm",
+            "LastModifiedDate": "2025-09-21T17:31:36.203000+10:00",
+            "LastModifiedUser": "arn:aws:iam::499419735592:root",
+            "Description": "JWT private key",
+            "Version": 1,
+            "Tier": "Standard",
+            "Policies": [],
+            "DataType": "text"
+        }
+    ]
+}
