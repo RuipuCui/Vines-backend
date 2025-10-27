@@ -119,3 +119,38 @@ exports.getById = async (req, res) => {
     return res.status(500).json({ error: 'server error' });
   }
 };
+
+exports.uploadUserIcon = async (req, res) => {
+  try {
+    const uid = req.user && (req.user.user_id || req.user.uid);
+    if (!uid) return res.status(401).json({ error: 'unauthorized' });
+    if (!req.file || !req.file.location) {
+      return res.status(400).json({ error: 'no file uploaded' });
+    }
+
+    const iconUrl = req.file.location;
+    const updatedUser = await User.updateUserIconUrl({uid, iconUrl});
+    if(!updatedUser){
+      return res.status(404).json({ error: 'user not found'});
+    }
+    return res.status(200).json(updatedUser); 
+  } catch (err) {
+    console.error("upload user icon failed", err)
+  }
+};
+
+exports.getUserIcon = async (req, res) => {
+  try {
+    const uid = req.user && (req.user.user_id || req.user.uid);
+    if (!uid) return res.status(401).json({ error: 'unauthorized' });
+
+    const userIcon = await User.getUserIcon({uid});
+    if(!userIcon){
+      return  res.status(404).json({ error: 'user icon not found'});
+    }
+    return res.status(200).json(userIcon);
+  } catch (err) {
+    console.error("get user icon failed", err)
+    return res.status(500).json({ error: 'server error' });
+  }
+};

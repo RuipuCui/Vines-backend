@@ -9,4 +9,7 @@ router.patch('/me', auth, userController.updateMe);
 
 router.get('/:id', auth, userController.getById);
 
+router.post('/icon', auth, upload.single('file'), userController.uploadUserIcon);
+router.get('/icon', auth, userController.getUserIcon);
+
 module.exports = router;

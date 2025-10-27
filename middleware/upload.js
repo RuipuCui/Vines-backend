@@ -26,7 +26,7 @@ const upload = multer({
   limits: { fileSize: 20 * 1024 * 1024 }, // Max: 20MB
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
-    if (['.jpg', '.jpeg', '.png', '.mp4', '.mov'].includes(ext)) {
+    if (['.jpg', '.jpeg', '.png', '.mp4', '.mov', 'pdf'].includes(ext)) {
       cb(null, true);
     } else {
       cb(new Error('Only image and video files are allowed'));

@@ -39,7 +39,32 @@ const User = {
       [uid, username, display_name, email, iconUrl, birthday, phone]
     );
     return rows[0] || null;
-  }
+  },
+
+  async updateUserIconUrl({uid, iconUrl}){
+    const { rows } = await db.query(
+      `
+        UPDATE users
+        SET icon_url = $1
+        WHERE user_id = $2
+        RETURNING user_id, username, display_name, email, icon_url, birthday, phone, created_at
+        `,
+      [iconUrl, uid] 
+    );
+    return rows[0] || null;
+  },
+
+  async getUserIcon({uid}){
+    const { rows } = await db.query(
+      `
+        SELECT icon_url
+          FROM users
+         WHERE user_id = $1
+      `,
+      [uid]
+    );
+    return rows[0] || null;
+  }   
 };
 
 module.exports = User;
