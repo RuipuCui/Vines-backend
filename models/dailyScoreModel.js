@@ -40,12 +40,12 @@ const getDailyScoresByDate = async(userId, score_date) => {
 };
 
 const getDailyScoresByDays = async(userId, days) => {
-    console.log(`start get daily score from last ${days}`);
-    let query = `
-        SELECT * FROM daily_scores
-        WHERE user_id = $1
-        ORDER BY score_date DESC
-        LIMIT $2
+    const query = `
+      SELECT *
+      FROM daily_scores
+      WHERE user_id = $1
+        AND score_date >= (CURRENT_DATE - ($2::int - 1) * INTERVAL '1 day')
+      ORDER BY score_date DESC
     `;
     const values = [userId, days];
     const res = await pool.query(query, values);
