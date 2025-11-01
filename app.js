@@ -19,5 +19,6 @@ app.use('/api/metrics', require('./routes/metricsRoutes'));
 app.use('/api/friends', require('./routes/friendRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/garden', require('./routes/gardenRoutes'));
+app.use('/api/diary', require('./routes/diaryRoutes'));
 
 module.exports = app;
