@@ -4,10 +4,12 @@ const {
   PutObjectCommand,
   DeleteObjectCommand,
   DeleteObjectsCommand,
+  GetObjectCommand,
 } = require('@aws-sdk/client-s3');
 const { createReadStream } = require('fs');
 const path = require('path');
 const mime = require('mime-types');
+const { Writable } = require('stream');
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -36,6 +38,36 @@ function parseS3Url(url) {
   } catch (err) {
     throw new Error('Invalid S3 URL');
   }
+}
+
+async function getObjectFromUrl(url) {
+  const { bucket, key, region } = parseS3Url(url);
+
+  // Create a temporary S3 client in case region differs
+  const tempS3 = new S3Client({
+    region,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
+  });
+
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+
+  const response = await tempS3.send(command);
+  
+  // Read stream into a Buffer
+  const stream = response.Body;
+  const chunks = [];
+
+  for await (const chunk of stream) {
+    chunks.push(chunk);
+  }
+
+  return Buffer.concat(chunks);
 }
 
 
@@ -103,4 +135,5 @@ module.exports = {
   deleteObject, 
   deleteObjects,
   parseS3Url, 
+  getObjectFromUrl,
 };

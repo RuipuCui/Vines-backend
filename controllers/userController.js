@@ -1,6 +1,8 @@
 // controllers/userController.js
 const db = require('../config/db');
 const User = require('../models/userModel');
+const { getObjectFromUrl } = require('../utils/s3Utils');
+const mime = require('mime-types');
 
 // GET /api/users/me
 exports.getMe = async (req, res) => {
@@ -149,7 +151,13 @@ exports.getUserIcon = async (req, res) => {
     if(!userIcon){
       return  res.status(404).json({ error: 'user icon not found'});
     }
-    return res.status(200).json(userIcon);
+
+    const fileBuffer = await getObjectFromUrl(userIcon.icon_url);
+    const contentType = mime.lookup(userIcon.icon_url) || 'application/octet-stream';
+
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Content-Disposition', 'inline; filename="user_icon"' + mime.extension(contentType));
+    return res.send(fileBuffer);
   } catch (err) {
     console.error("get user icon failed", err)
     return res.status(500).json({ error: 'server error' });
