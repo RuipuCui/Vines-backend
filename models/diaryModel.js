@@ -145,3 +145,61 @@ exports.removeComment = async (me, entryId, commentId) => {
   const { rowCount } = await db.query(q, [commentId, entryId, me]);
   return rowCount > 0;
 };
+
+// --- Reactions: summary + my reactions + recent reactors ---
+exports.getReactions = async (entryId, me, { limit = 10 } = {}) => {
+  // 1) summary (emoji -> count)
+  const q1 = `
+    SELECT emoji, COUNT(*)::int AS count
+    FROM diary_reactions
+    WHERE entry_id = $1
+    GROUP BY emoji
+    ORDER BY count DESC, emoji
+  `;
+  const r1 = await db.query(q1, [entryId]);
+
+  // 2) my reactions on this entry (a user can react multiple emojis under current PK)
+  let mine = [];
+  if (me) {
+    const q2 = `
+      SELECT emoji
+      FROM diary_reactions
+      WHERE entry_id = $1 AND user_id = $2
+      ORDER BY created_at DESC
+    `;
+    const r2 = await db.query(q2, [entryId, String(me).trim()]);
+    mine = r2.rows.map(x => x.emoji);
+  }
+
+  // 3) recent reactors (optional preview)
+  const q3 = `
+    SELECT r.emoji, r.user_id, r.created_at,
+           u.username, u.icon_url
+    FROM diary_reactions r
+    JOIN users u ON u.user_id = r.user_id
+    WHERE r.entry_id = $1
+    ORDER BY r.created_at DESC
+    LIMIT $2
+  `;
+  const r3 = await db.query(q3, [entryId, Number(limit)]);
+
+  // normalize summary with reacted_by_me flags
+  const summary = r1.rows.map(row => ({
+    emoji: row.emoji,
+    count: row.count,
+    reacted_by_me: mine.includes(row.emoji),
+  }));
+
+  return {
+    entry_id: entryId,
+    summary,
+    my_reactions: mine, 
+    recent_reactors: r3.rows.map(x => ({
+      user_id: x.user_id,
+      username: x.username,
+      icon_url: x.icon_url,
+      emoji: x.emoji,
+      reacted_at: x.created_at,
+    })),
+  };
+};

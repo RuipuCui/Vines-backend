@@ -116,3 +116,16 @@ exports.removeComment = async (req, res) => {
     return res.json({ ok: true });
   } catch (e) { console.error('removeComment error:', e); return res.status(500).json({ error: 'server error' }); }
 };
+
+exports.getReactions = async (req, res) => {
+  try {
+    const me = meId(req) || null; // allow anonymous? here still behind auth, but keep null-safe
+    const { entryId } = req.params;
+    const { limit } = req.query;
+    const data = await Diary.getReactions(entryId, me, { limit: limit ? Number(limit) : 10 });
+    return res.json(data);
+  } catch (e) {
+    console.error('getReactions error:', e);
+    return res.status(500).json({ error: 'server error' });
+  }
+};

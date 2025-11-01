@@ -13,6 +13,7 @@ router.get('/friends', c.listFriends);             // friends timeline (accepted
 router.delete('/:entryId', c.removeEntry);         // delete my entry
 
 // reactions
+router.get('/:entryId/reactions', c.getReactions);      // NEW: fetch summary + my reactions + preview
 router.post('/:entryId/reactions', c.addReaction);     // body: { emoji }
 router.delete('/:entryId/reactions', c.removeReaction);// body: { emoji }
 
