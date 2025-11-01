@@ -1,5 +1,5 @@
 const mediaModel = require('../models/mediaModel');
-const { parseS3Url, deleteObject } = require('../utils/s3Utils');
+const { parseS3Url, deleteObject, getObjectFromUrl} = require('../utils/s3Utils');
 
 const uploadMedia = async (req, res) => {
   console.log("--- start upload media ---")
@@ -30,7 +30,12 @@ const getUserMedia = async(req, res) => {
   try {
     if(uploadId){
       const mediaUrls = await mediaModel.getMediaByUploadId(uploadId);
-      return res.status(200).json(mediaUrls)
+      const fileBuffer = await getObjectFromUrl(mediaUrls.media_url);
+      const contentType = mime.lookup(mediaUrls.media_url) || 'application/octet-stream';
+
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Content-Disposition', 'inline; filename="media_' + uploadId + '"' + mime.extension(contentType));
+      return res.send(fileBuffer);
     }
     const mediaUrls = await mediaModel.getMediaByUser(userId, date);
     return res.status(200).json(mediaUrls)
