@@ -21,6 +21,7 @@ exports.getMe = async (req, res) => {
     );
 
     if (!rows[0]) return res.status(404).json({ error: 'user not found' });
+    console.log('getMe user:', rows[0]);
     return res.json(rows[0]);
   } catch (err) {
     console.error('getMe error', err);
