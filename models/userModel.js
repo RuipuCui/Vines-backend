@@ -14,6 +14,23 @@ const User = {
     return rows[0];
   },
 
+  // Find all users by username (case-insensitive exact match)
+  // NOTE: We intentionally return a minimal safe projection for search results.
+  async searchByUsername(username) {
+    const { rows } = await db.query(
+      `
+        SELECT user_id, username, display_name, icon_url
+          FROM users
+         WHERE username IS NOT NULL
+           AND lower(username) = lower($1)
+         ORDER BY user_id ASC
+      `,
+      [username]
+    );
+    return rows;
+  },
+
+
   // Find user by ID
   async findById(id) {
     const { rows } = await db.query(

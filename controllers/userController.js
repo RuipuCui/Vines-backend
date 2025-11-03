@@ -106,6 +106,21 @@ exports.updateMe = async (req, res) => {
   }
 };
 
+// GET /api/users/search?username
+exports.searchByUsername = async (req, res) => {
+  try {
+    const { username } = req.query || {};
+    if (!username || !String(username).trim()) {
+      return res.status(400).json({ error: 'username query required'});
+    }
+    const rows = await require('../models/userModel').searchByUsername(String(username).trim());
+    return res.json(rows);
+  } catch (e) {
+    console.error('searchByUsername error:', e);
+    return res.status(500).json({ error: 'server error'});
+  }
+}
+
 // GET /api/users/:id
 exports.getById = async (req, res) => {
   try {

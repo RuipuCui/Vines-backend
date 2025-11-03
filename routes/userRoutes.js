@@ -11,6 +11,7 @@ router.patch('/me', auth, userController.updateMe);
 router.post('/icon', auth, upload.single('file'), userController.uploadUserIcon);
 router.get('/icon', auth, userController.getUserIcon);
 
+router.get('/search', auth, userController.searchByUsername);
 router.get('/:id', auth, userController.getById);
 
 module.exports = router;
