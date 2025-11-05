@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 const upload = require('../middleware/upload'); // multer middleware
 
 router.get('/me', auth, userController.getMe);
-router.patch('/me', auth, userController.updateMe);
+router.post('/me', auth, userController.updateMe);
 
 router.post('/icon', auth, upload.single('file'), userController.uploadUserIcon);
 router.get('/icon', auth, userController.getUserIcon);
