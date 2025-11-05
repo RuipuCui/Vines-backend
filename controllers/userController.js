@@ -29,7 +29,7 @@ exports.getMe = async (req, res) => {
   }
 };
 
-// PATCH /api/users/me
+// POST /api/users/me
 exports.updateMe = async (req, res) => {
   try {
     const uid = req.user && (req.user.user_id || req.user.uid);
@@ -40,11 +40,10 @@ exports.updateMe = async (req, res) => {
       return res.status(400).json({ error: 'email cannot be updated via this endpoint' });
     }
 
-    // Accept partial updates (email intentionally excluded)
+    // icon_url is intentionally excluded; handled via uploadUserIcon/getUserIcon endpoints
     const {
       username,
       display_name,
-      icon_url,
       birthday,   // YYYY-MM-DD
       phone
     } = req.body || {};
@@ -59,9 +58,6 @@ exports.updateMe = async (req, res) => {
       if (typeof display_name !== 'string' || display_name.length > 100) {
         return res.status(400).json({ error: 'display_name must be string (<=100 chars)' });
       }
-    }
-    if (icon_url !== undefined && typeof icon_url !== 'string') {
-      return res.status(400).json({ error: 'icon_url must be string' });
     }
     if (birthday !== undefined) {
       if (typeof birthday !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(birthday)) {
@@ -81,7 +77,6 @@ exports.updateMe = async (req, res) => {
 
     if (username !== undefined)     { sets.push(`username = $${i++}`);     params.push(username.trim()); }
     if (display_name !== undefined) { sets.push(`display_name = $${i++}`); params.push(display_name); }
-    if (icon_url !== undefined)     { sets.push(`icon_url = $${i++}`);     params.push(icon_url); }
     if (birthday !== undefined)     { sets.push(`birthday = $${i++}`);     params.push(birthday); } // let PG cast DATE
     if (phone !== undefined)        { sets.push(`phone = $${i++}`);        params.push(phone); }
 
