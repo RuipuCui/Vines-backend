@@ -155,7 +155,10 @@ exports.uploadUserIcon = async (req, res) => {
 exports.getUserIcon = async (req, res) => {
   try {
     console.log("get user icon called")
-    const uid = req.user && (req.user.user_id || req.user.uid);
+    let uid  = req.query?.uid ?? null;
+    if(!uid){
+      uid = req.user && (req.user.user_id || req.user.uid);
+    }
     if (!uid) return res.status(401).json({ error: 'unauthorized' });
     console.log("user id: ", uid);
     const userIcon = await User.getUserIcon({uid});
