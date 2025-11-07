@@ -157,8 +157,9 @@ exports.getUserIcon = async (req, res) => {
     console.log("get user icon called")
     const uid = req.user && (req.user.user_id || req.user.uid);
     if (!uid) return res.status(401).json({ error: 'unauthorized' });
-
+    console.log("user id: ", uid);
     const userIcon = await User.getUserIcon({uid});
+    console.log("user icon info: ", userIcon);
     if(!userIcon){
       return  res.status(404).json({ error: 'user icon not found'});
     }
